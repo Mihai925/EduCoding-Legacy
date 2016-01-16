@@ -1,0 +1,149 @@
+{% extends 'base_user_menu.html' %}
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+{% block CUSTOM_IMPORTS %}
+<style xmlns="http://www.w3.org/1999/html">
+   .django-ace-toolbar {
+   visibility: hidden;
+   }
+   .ace_edutor {
+   font-size:15px;
+   }
+
+    #tests {
+        display:none;
+    }
+</style>
+<link href="{% static "custom/css/exercises.css" %}" rel="stylesheet">
+{{ form.media }}
+{% endblock %}
+{% block CONTENT %}
+<div class="col-sm-9 bg-white">
+
+   <h2>Manage exercises</h2>
+    {%  if errors %}
+    <b>Errors:</b>
+        <ul>
+
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {%  endif %}
+   <hr />
+   <div class="bs-example">
+      <div class="panel-group" id="accordion">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Add new exercise</a>
+               </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+               <div class="panel-body">
+                  <form method="post">
+                      {% csrf_token %}
+                     <fieldset>
+                        <div class="row">
+                           <div class="form-group col-md-8">
+                              <label for="inputTitle">Title</label>
+                               {{ form.inputTitle }}
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-8">
+                              <label for="inputDescription">Description</label>
+                               {{ form.inputDescription }}
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-8">
+                              <label for="language">Language</label>
+                              {{ form.language }}
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-8" style="padding:0;padding-right:5px;">
+                              <label for="content">Exercise Content</label>
+
+
+                                 {{ form.non_field_errors }}
+                                 {{ form.code.errors }}
+                                 {{ form.code }}
+
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="checkbox col-md-8">
+                              <label>
+                              {{ form.add_tests }} Add tests
+                              </label>
+                           </div>
+                        </div>
+                        <div id="tests">
+                           <div class="row">
+                              <div class="col-md-4">
+                                 <label>Test Input
+                                    <textarea rows="3" cols="40" class="form-control" name="input_test" id="input_t"></textarea>
+                                 </label>
+                              </div>
+                              <div class="col-md-4">
+                                 <label>Expected Output
+                                    <textarea rows="3" cols="40" class="form-control" name="output_test" id="output_t"></textarea>
+                                 </label>
+                              </div>
+                              <div class="col-md-4">
+                                 <br />
+                                 <br />
+                                 <i class="fa fa-minus-circle fa-3x delete_test"></i>
+                              </div>
+                           </div>
+
+
+                        </div>
+                        <div class="row">
+                           <div class="col-md-8">
+                              <br />
+                              <button type="button" class="btn btn-xs btn-danger" id="add_test"><span class="glyphicon glyphicon-plus-sign"></span> Add another test</button>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-8">
+                              <br />
+                              <button type="submit" class="btn btn-primary">Create Exercise</button>
+                           </div>
+                        </div>
+                     </fieldset>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   var $tests_number = 1;
+   $new_test = '<div class="row"><div class="col-md-4"><label>Test Input<textarea rows="3" cols="40" class="form-control" name="input_test">' +
+   '</textarea></label></div><div class="col-md-4">' +
+   '<label>Expected Output<textarea rows="3" cols="40" class="form-control" name="output_test"></textarea> </label><' +
+   '/div><div class="col-md-4"><br /><br /><i class="fa fa-minus-circle fa-3x delete_test"></i></div></div>';
+   $("#add_tests").change(function() {
+      if($(this).is(':checked')) {
+          $("#tests").show();
+      } else {
+          $("#tests").hide();
+      }
+   });
+
+    $(".delete_test").click(function() {
+      if($tests_number > 1) {
+          $(this).parent().parent().remove();
+      }
+    });
+
+    $("#add_test").click(function() {
+        $("#tests").append($new_test);
+        $tests_number++;
+    })
+</script>
+{% endblock %}

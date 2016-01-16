@@ -1,0 +1,7 @@
+.overflow-use-ellipsis {
+    width: 100% !important;
+    text-overflow: ellipsis !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+}

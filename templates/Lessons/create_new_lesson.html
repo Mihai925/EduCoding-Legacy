@@ -1,0 +1,173 @@
+{% extends 'base_user_menu.html' %}
+
+{% block CONTENT %}
+  <style>
+    .nav-float {
+      transition: all 0.3s ease-in-out 0s;
+      -moz-transition: all 0.3s ease-in-out 0s;
+      -webkit-transition: all 0.3s ease-in-out 0s;
+    }
+
+    .nav-float li {
+      transition: all 0.3s ease-in-out 0s;
+      -moz-transition: all 0.3s ease-in-out 0s;
+      -webkit-transition: all 0.3s ease-in-out 0s;
+    }
+  </style>
+  <div class="col-lg-9 tab-content">
+    <div class="row" style="">
+      <div class="col-lg-4">
+        <h3>Create New Lesson</h3>
+      </div>
+      <div class="col-lg-offset-4 col-lg-2 padding-5">
+        <button class="btn btn-success" style="width: 100%; font-size: large" data-toggle="modal"
+                data-target="#createClassModal">
+          Preview
+        </button>
+      </div>
+      <div class="col-lg-2 padding-5">
+        <button class="btn btn-success" style="width: 100%; font-size: large" data-toggle="modal"
+                data-target="#createClassModal">
+          <i class="fa fa-floppy-o"></i> Save
+        </button>
+      </div>
+    </div>
+    <div class="row margin-bottom-20" style="width: 100%">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10">
+        <h4>Briefing</h4>
+      </div>
+      <textarea id="briefing" rows="3" cols="100%" style="width: 100%"
+                placeholder="Enter what this lesson is about in one line..."></textarea>
+    </div>
+    <div class="row margin-bottom-20" style="width: 100%">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10">
+        <h4>Introduction</h4>
+      </div>
+      <textarea id="introduction" rows="5" cols="100%" style="width: 100%"
+                placeholder="Enter detailed introduction to this lesson..."></textarea>
+    </div>
+    <div class="row margin-bottom-20" style="width: 100%">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10">
+        <h4>Exercises</h4>
+      </div>
+      <div id="addedExercises" class="drop" ondrop="addExerciseToDiv">
+        <p class="info">Drop exercises from right here...</p>
+      </div>
+    </div>
+    <div class="row margin-bottom-20" style="width: 100%">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10">
+        <h4>Presentation</h4>
+      </div>
+      <input type="file"/>
+    </div>
+    <div class="row margin-bottom-20" style="width: 100%">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10">
+        <h4>Visibility</h4>
+      </div>
+      <select>
+        <option>Private (Only me)</option>
+        <option>School (All teachers in my school)</option>
+        <option>Public (Everyone using Codeaton)</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-offset-7 col-lg-3 tab-content pull-right"
+       style="z-index: 1020; position: fixed; padding-left: 5%;">
+    <div class="row margin-bottom-20" style="width: 100%;">
+      <div class="bg-dark-gray min-height-30 padding-10 margin-bottom-10" style="padding-right: 0!important;">
+        <h4>Exercises</h4>
+      </div>
+      <div class="margin-bottom-10"
+           style="position:fixed;height: 70%; width:19%; overflow:scroll; padding:0;  box-sizing: border-box; ">
+        <ul class="nav nav-pills nav-stacked nav-float"
+            style="width:100%; box-shadow: inset 0 0 1em gold;">
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Addition</h4>
+
+              <p class="info overflow-use-ellipsis">This is exercise on addition</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Subtraction</h4>
+
+              <p class="info">This is exercise on basic substraction </p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Loops</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise on sequences using while loop</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Sequences</h4>
+
+              <p class="info overflow-use-ellipsis">Simple recursive algorithm for generating fibonacci sequence</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Functions</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise about funcion calls in python</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Arrays</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise using different operations on arrays </p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Data Structures</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise using Arrays, Tuples, and Dictionaries in python</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Custom Data Structures</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise with Python classes for storing custom data</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Higher-Order Functions</h4>
+
+              <p class="info overflow-use-ellipsis">Exercises using Python Map, and list comprehension</p>
+            </div>
+          </li>
+          <li class="bg-white padding-5" draggable="true" data-value="1">
+            <div class="item-inner" style="padding-left: 5px;">
+              <h4>Basic Python</h4>
+
+              <p class="info overflow-use-ellipsis">Exercise on basic python syntax</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    var addedExercisesDiv = $('#addedExercises');
+    function addExerciseToDiv(event) {
+      var addedExercises = getList();
+      var html = "<ul>";
+      for (var i = 0; i < addedExercises.size(); i++) {
+        html += "<li> " + addedExercises[i] + "</li>";
+      }
+      html += "</ul>";
+      addedExercisesDiv.val(html);
+    }
+    function getList() {
+      return ["1", "2", "3"];
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+<div class="row" style="padding: 10px;">
+  {% for name, std_id in students %}
+    <div class="col-md-4" style="padding:0">
+      <div style="padding:0;">
+        <div class="col-sm-3 student-avatar" style="padding: 0"></div>
+        <div class="col-sm-7" style="padding: 0!important;">
+          <span class="student-name  overflow-use-ellipsis">{{ name }}</span>
+        </div>
+        <div class="col-sm-1">
+          <a class="icon-success" style="position:absolute; padding-top: 0; top:0; left:0;"> <span
+              onclick="delete_student_from_class({{ course_id }},'{{ std_id }}')"
+              class="glyphicon glyphicon-minus-sign"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% if invitations|length != 0 %}
+  <div class="row" style="border-bottom:1px solid #EEE;">
+    <br><br>
+  </div>
+  <div class="row">
+    <div class="row-fluid">
+      <h5 style="padding-left: 10px;">Pending Invitations</h5>
+    </div>
+    <div class="row-fluid" style="padding: 10px">
+      {% for email, invitation_id in invitations %}
+        <div class="col-md-4" style="padding:10px 0 10px 0;float:left;">
+          <div class="col-sm-3 student-avatar" style="padding: 0"></div>
+          <div class="col-sm-9" style="padding:0;">
+            <div class="row-fluid overflow-use-ellipsis">
+              <span class="student-email">{{ email }}</span>
+            </div>
+            <div class="row-fluid">
+              <span class="student-email change-to-hand-on-hover" style="font-size: small; color: saddlebrown"
+                    onclick="resendInvitationEmail({{ invitation_id }}, '{{ email }}'); return false;">Resend
+              </span>
+              <span class="student-email change-to-hand-on-hover" style="font-size: small; color: red"
+                    onclick="deleteInvitation({{ invitation_id }}, '{{ email }}'); return false;">Delete
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

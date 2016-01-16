@@ -1,0 +1,21 @@
+{
+  "name": "codeaton_html_files",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies":{
+    "jquery":"latest",
+    "bootstrap":"latest",
+    "components-font-awesome":"latest",
+    "alertifyjs":"latest"
+  },
+  "install":{
+    "path":"static"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

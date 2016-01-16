@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  {% include 'header.html' %}
+  {% block CUSTOM_IMPORTS %}
+  {% endblock %}
+</head>
+{% block BODY %}
+  <body>
+  {% block NAVBAR %}
+  {% endblock %}
+  {% block FULL_WIDTH %}
+  {% endblock %}
+  {% block MODALS %}
+  {% endblock %}
+  </body>
+{% endblock %}
+</html>

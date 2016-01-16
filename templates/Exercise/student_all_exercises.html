@@ -1,0 +1,28 @@
+{% extends 'base_user_menu.html' %}
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+
+{% block CUSTOM_IMPORTS %}
+  <link href="{% static "custom/css/exercises.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block CONTENT %}
+  <div class="col-md-4">
+    {% for unit_name, exercise_s in exercises %}
+      <div class="item" style="padding:10px auto;background-color:#444;border-bottom:1px solid #eee;">
+        <span style="font-size:18px;margin-left:10px;color:#FFF;">- {{ unit_name }}</span><br>
+      </div>
+      {% for exercise in exercise_s %}
+        <div class="item" style="padding:10px auto">
+          <div style="height:40px;width:40px;background-color:#00FF00;float:left;"></div>
+          <span style="font-size:18px;margin-left:10px;">
+              <a href="{% url "single_ex" exercise.ex_id %}">
+              {{ exercise.title }}
+              </a>
+          </span><br>
+          <span style="margin-left:10px;">{{ exercise.description }}</span>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endblock %}

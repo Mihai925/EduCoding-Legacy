@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+
+{% block CUSTOM_IMPORTS %}
+  <link href="{% static "custom/css/landingPage.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block FULL_WIDTH %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 banner" style="background-image:url({% static "custom/images/logo-banner.png" %})"><h1
+          align="center">Start small, build big.</h1></div>
+    </div>
+    <form class="form-horizontal" action='/authentication/login/' method="POST">
+      <br>
+      {% csrf_token %}
+      {{ login_form.non_field_errors }}
+      <div class="form-group">
+        <!-- Username -->
+        {{ login_form.username.errors }}
+        <label class="col-sm-offset-2 col-sm-2 control-label" for="username">Username</label>
+
+        <div class="" id="loginUsernameGroup">
+          <div class="col-sm-4">
+            {{ login_form.username|addcss:'class:form-control,placeholder:Username' }}
+            <span id="loginUsernameStatusIcon" class="" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Password-->
+        {{ login_form.password.errors }}
+        <label class="col-sm-offset-2 col-sm-2 control-label" for="password">Password</label>
+
+        <div class="" id="loginPasswordGroup">
+          <div class="col-sm-4">
+            {{ login_form.password|addcss:'class:form-control,placeholder:Password' }}
+            <span id="loginPasswordStatusIcon" class="" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <!-- Button -->
+        <div class="col-sm-offset-4 col-sm-2">
+          <button class="btn btn-success" value="Submit" id="loginBtn">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block NAVBAR %}
+  <nav id="subscribeNavBar" class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid" style="padding-top: 5px; padding-bottom: 5px">
+      <form class="form-inline col-sm-offset-4">
+        <div id="subscribe_group" class="form-group">
+          <label id="subscribeText" class=" control-label" style="text-align: right; padding-top: 5px">Subscribe to our
+            News:</label>
+          <input id="subscribe_email" type="text" class="form-control" placeholder="Email">
+          <span id="subscribeStatusIcon" class="" aria-hidden="true"></span>
+        </div>
+
+        <button class="btn btn-success" id="subscribeButton" onclick="subscribe();return false;">
+          Subscribe
+        </button>
+
+      </form>
+    </div>
+  </nav>
+  <script src="{% static "custom/js/subscribe.js" %}"></script>
+{% endblock %}

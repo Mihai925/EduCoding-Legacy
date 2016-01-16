@@ -1,0 +1,321 @@
+body {
+    background-color: #f2f2f2;
+}
+
+a {
+    color: #000;
+}
+
+/*--------------------------------------------
+| UTILITY CLASSES
+--------------------------------------------*/
+.text-green {
+    color: #00ff00;
+}
+
+.text-yellow {
+    color: #ffff00;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.padding-5 {
+    padding: 5px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.padding-15 {
+    padding: 15px;
+}
+
+.padding-20 {
+    padding: 20px;
+}
+
+.padding-25 {
+    padding: 25px;
+}
+
+.padding-30 {
+    padding: 30px;
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-25 {
+    margin-bottom: 25px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-top-0 {
+    margin-top: 0;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-25 {
+    margin-top: 25px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.min-height-50 {
+    min-height: 50px;
+}
+
+.min-height-100 {
+    min-height: 100px;
+}
+
+.min-height-150 {
+    min-height: 150px;
+}
+
+.min-height-200 {
+    min-height: 200px;
+}
+
+.min-height-300 {
+    min-height: 300px;
+}
+
+.min-height-500 {
+    min-height: 500px;
+}
+
+/*--------------------------------------------
+| BACKGROUNDS
+--------------------------------------------*/
+.bg-white {
+    background-color: #fff !important;
+    color: #333;
+}
+
+.bg-black {
+    background-color: #000 !important;
+    color: #fff;
+}
+
+.bg-light-gray {
+    background-color: #f2f2f2 !important;
+    color: #000;
+}
+
+.bg-gray {
+    background-color: #ccc !important;
+    color: #000;
+}
+
+.bg-dark-gray {
+    background-color: #333 !important;
+    color: #fff;
+}
+
+/*--------------------------------------------
+| NAVBAR
+--------------------------------------------*/
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a.bars {
+    font-size: 18px;
+    color: #fff;
+}
+
+/*--------------------------------------------
+| SIDEBAR NAVIGATION
+--------------------------------------------*/
+.sidebar a {
+    color: #000;
+}
+
+.nav-pills > li > a {
+    border-radius: 0;
+}
+
+.sidebar.nav-pills > li.active > a,
+.sidebar.nav-pills > li.active > a:focus,
+.sidebar.nav-pills > li.active > a:hover {
+    background-color: #e5e5e5;
+    color: #000;
+}
+
+.sidebar-link {
+    display: table-row;
+}
+
+.sidebar-link .item-media {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px 10px;
+}
+
+.sidebar-link .item-inner {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 15px 10px 0;
+    width: 100%;
+}
+
+/*--------------------------------------------
+| ACCORDION PANELS
+--------------------------------------------*/
+.panel {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.panel-transparent > .panel-heading {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 20px 15px;
+    color: #fff;
+}
+
+.panel-body {
+    padding: 0;
+}
+
+.panel-footer {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 5px 10px;
+}
+
+.panel-transparent > .panel-heading.bg-black a {
+    color: #fff;
+}
+
+.panel-transparent > .panel-heading.bg-gray a {
+    color: #000;
+}
+
+/*--------------------------------------------
+| ACCORDION TAB NAVIGATION
+--------------------------------------------*/
+.accordion-nav.nav-pills > li.active > a,
+.accordion-nav.nav-pills > li.active > a:focus,
+.accordion-nav.nav-pills > li.active > a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.accordion-nav-link {
+    display: table-row;
+}
+
+.accordion-nav-link .item-media {
+    display: table-cell;
+    vertical-align: top;
+    padding: 5px 8px;
+}
+
+.accordion-nav-link .item-inner {
+    display: table-cell;
+    vertical-align: top;
+    padding: 5px 8px 5px 0;
+    width: 100%;
+}
+
+/*--------------------------------------------
+| BUTTON
+--------------------------------------------*/
+.btn {
+    border-radius: 0;
+}
+
+.btn-gray {
+    background-color: #cccccc;
+    color: #000;
+    font-size: 15px;
+    width: 100%;
+}
+
+.btn-gray:hover, .btn-gray:focus, .btn-gray.focus, .btn-orange:active, .btn-gray.active {
+    background-color: #bbbbbb;
+    color: #000;
+}
+
+/*--------------------------------------------
+| MEDIA
+--------------------------------------------*/
+.media-center {
+    display: table-cell;
+}
+
+.media-left,
+.media-center {
+    padding-right: 15px;
+}
+
+.media-left .fa {
+    font-size: 18px;
+}
+
+.media.exercise {
+    padding: 5px;
+}
+
+.media.exercise:hover {
+    background-color: #f2f2f2 !important;
+}
+
+.drop {
+    border: 3px dashed #ccc;
+    padding: 10px;
+    background: #fff;
+    min-height: 100px;
+    vertical-align: middle;
+}
+
+.drop .info {
+    color: #999;
+    font-size: large;
+    text-align: center;
+}

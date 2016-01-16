@@ -1,0 +1,88 @@
+{% extends 'base_user_menu.html' %}
+{% load static %}
+
+{% block CUSTOM_IMPORTS %}
+  <link href="{% static 'google-code-prettify/prettify.css' %}" rel="stylesheet"/>
+  <script src="{% static 'google-code-prettify/prettify.js' %}"></script>
+  <script src="{% static 'google-code-prettify/run_prettify.js' %}"></script>
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+
+    a {
+      color: #000;
+    }
+  </style>
+{% endblock %}
+
+{% block CONTENT %}
+  {% csrf_token %}
+  <div class="col-sm-5 padding-0" style="padding: 0 !important">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      {% for unit in units %}
+        <div class="panel panel-transparent" style="border: none">
+          <div class="panel-heading bg-black" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                 aria-controls="collapseOne"><span class="fa fa-minus"></span> {{ unit.get_name }}</a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body" style="background-color: #f2f2f2; padding:0 !important">
+              <ul class="nav nav-pills nav-stacked accordion-nav" role="tablist">
+                {% for lesson in unit.get_lessons %}
+                  <li role="presentation" id="lesson_list_{{ lesson.get_id }}"
+                      onclick="loadLesson({{ lesson.get_id }}); return false;">
+                    <a href="#lesson_{{ lesson.get_id }}" aria-controls="lesson_{{ lesson.get_id }}" role="tab"
+                       data-toggle="tab"
+                       class="accordion-nav-link">
+                      <div class="item-media"
+                           style="height:45px;width:45px;background-color:#00FF00;float:left; padding-left: 10px;"></div>
+                      <div class="item-inner" style="padding-left: 5px;">
+                        {{ lesson.get_title }}
+                        <p>{{ lesson.get_description }}</p>
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <div class="padding-20">
+                <button type="button" onclick="window.location.href='/Lessons/create_lesson_plan'"
+                        class="btn btn-gray center-block">+ New lesson
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="col-sm-7 tab-content padding-20 bg-white" id="lesson_view">
+
+  </div>
+
+  <script>
+    var lessonView = $('#lesson_view');
+    var csrftoken = getCsrfToken();
+    lessonView.hide();
+    function loadLesson(lesson_id) {
+      $.ajax({
+        type: 'GET',
+        url: '/Lessons/get_lesson_plan/' + lesson_id.toString() + "/",
+        data: {},
+        beforeSend: function (xhr, settings) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        },
+        success: function (response) {
+          lessonView.html(response);
+          lessonView.show();
+        },
+        onerror: function (xhr, ajaxOptions, thrownError) {
+          alert(thrownError);
+        }
+      });
+    }
+  </script>
+{% endblock %}

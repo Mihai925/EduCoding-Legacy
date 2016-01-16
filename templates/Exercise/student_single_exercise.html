@@ -1,0 +1,102 @@
+{% extends 'base_user_menu.html' %}
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+
+{% block CUSTOM_IMPORTS %}
+  <link href="{% static "custom/css/student_single_ex.css" %}" rel="stylesheet">
+  <link href="{% static "ladda/ladda-themeless.min.css" %}" rel="stylesheet">
+    <script src="{% static "ladda/spin.min.js" %}"></script>
+    <script src="{% static "ladda/ladda.min.js" %}"></script>
+
+    {{ form.media }}
+{% endblock %}
+
+{% block LEFT_MENU %}
+{% endblock %}
+{% block MAIN_CONTENT %}
+  <div class="container-fluid exercise-top" style="margin-left:-15px">
+    <div>
+      <div class="container">
+       <!-- <div class="row">
+          <div class="col-md-6">
+            <p style="margin-left:-15px;margin-top:60px">
+            </p>
+          </div>
+        </div> -->
+        <div class="row" style="position:relative;top:5px;">
+            <div class="col-md-12 text-center" style="margin:0 auto;position:absolute;top:0;">
+                    <h3>Exercise 1.1</h3>
+            </div>
+          <div class="col-md-6">
+            <a class="btn btn-danger" href="/Exercise/student/" style="float:left;margin:15px auto 15px -15px;">Back</a>
+          </div>
+          <div class="col-md-6">
+            <button type="button" class="btn btn-primary pull-right ladda-button" onclick="submit_code()" style="float:right;margin:15px -15px 15px auto;">
+                <span class="ladda-label">
+                    Submit
+                </span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    <div class="container">
+    <div class="row" style="position:relative;top:40px;z-index:0">
+      <div class="col-md-6" style="padding:0;padding-right:5px;">
+        <form>
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          {{ form.code.errors }}
+          {{ form.code }}
+        </form>
+      </div>
+
+      <div class="col-md-6" style="padding:0;padding-left:5px;">
+        <!--code output-->
+        <textarea class="code-input" id="outputConsole" disabled></textarea>
+      </div>
+    </div>
+
+    <div class="row" style="position:relative;top:50px;background:white;padding:5px;">
+        <div class="col-md-6">
+            <h3>Description</h3>
+            {{ ex_description }}
+        </div>
+    </div>
+  </div>
+  <script>
+    var ex_id = {{ ex_id }};
+    var code = $("#id_code_{{ ex_id }}");
+    var outputConsole = $('#outputConsole');
+
+    function submit_code() {
+        var ladda_button = Ladda.create(document.querySelector('.ladda-button'));
+      $.ajax({
+        type: 'POST',
+        url: '/Exercise/student/submit/',
+        data: {
+          'code': code.val(),
+          'ex_id':{{ex_id}}
+        },
+        beforeSend: function (xhr, settings) {
+          ladda_button.start();
+          xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+        },
+        success: function (response) {
+          ladda_button.stop();
+            updateConsole(response);
+        }
+      });
+
+      function updateConsole(response) {
+        outputConsole.val(response);
+      }
+    }
+  </script>
+{% endblock %}

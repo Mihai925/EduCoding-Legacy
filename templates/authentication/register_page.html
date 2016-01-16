@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+
+{% block CUSTOM_IMPORTS %}
+  <link href="{% static "custom/css/landingPage.css" %}" rel="stylesheet">
+  <script src="{% static "custom/js/common.js" %}"></script>
+{% endblock %}
+
+{% block FULL_WIDTH %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 banner" style="background-image:url({% static "custom/images/logo-banner.png" %})"><h1
+          align="center">Start small, build big.</h1></div>
+    </div>
+    {% if is_not_validated %}
+      <h3 style="text-align: center">The invitation url is invalid. Please speak to your teacher, who sent you
+        invitation.</h3>
+    {% else %}
+      <h3 style="text-align: center">You were invited by {{ teacher_name }}</h3>
+      <div class="col-sm-offset-3">
+        <form class="form-horizontal" action='/authentication/register/student/' method="POST">
+          <br>
+          {% csrf_token %}
+          {{ register_form.non_field_errors }}
+          <div class="form-group">
+            <br>
+            <label class="col-sm-2 control-label" for="username">Username</label>
+
+            <div class="has-feedback" id="reg_username_group">
+              <div class="col-sm-5">
+                {{ register_form.username|addcss:'form-control,placeholder:Username (minimum 6 characters),aria-describedby:usernameStatus' }}
+                <span id="usernameStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+
+              <label class="col-sm-4 control-label" style="text-align:left"
+                     id="usernameErrorText">{{ username_error }}</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="firstName">First Name</label>
+
+            <div id="reg_firstName_group" class="">
+              <div class="col-sm-5">
+                {{ register_form.firstName|addcss:'class:form-control,placeholder:First Name' }}
+                <span id="firstNameStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="lastName">Last Name</label>
+
+            <div id="reg_lastName_group" class="">
+              <div class="col-sm-5">
+                {{ register_form.lastName|addcss:'class:form-control,placeholder:Last Name' }}
+                <span id="lastNameStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="email">E-mail</label>
+
+            <div class="" id="reg_email_group">
+              <div class="col-sm-5">
+                {{ register_form.email|addcss:'class:form-control,placeholder:Email,readonly:True' }}
+                <span id="emailStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+              <label class="col-sm-4 control-label" style="text-align:left" id="emailText">{{ email_error }}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">Password</label>
+
+            <div class="" id="reg_password_group">
+              <div class="col-sm-5">
+                {{ register_form.password|addcss:'class:form-control,placeholder:Password (minimum 6 characters)' }}
+                <span id="passwordStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+              <label class="col-sm-4 control-label" style="text-align:left" id="divCheckPasswordValid"></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="passwordconf">Re-enter your
+              password</label>
+
+            <div id="reg_passwordConf_group" class="">
+              <div class="col-sm-5">
+                {{ register_form.repeatPassword|addcss:'class:form-control,placeholder:Repeat Password,required:' }}
+                <span id="repPasswordStatusIcon" class="" aria-hidden="true"></span>
+              </div>
+              <label class="col-sm-4 control-label" style="text-align:left" id="divCheckPasswordMatch"></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- Button -->
+            <div class="col-sm-offset-2 col-sm-2">
+              <button id="registerBtn" class="btn btn-success" value="Submit">Register</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      </div>
+      <script>
+        //Status icons
+        var userStatusIcon = $('#usernameStatusIcon');
+        var firstNameStatusIcon = $('#firstNameStatusIcon');
+        var lastNameStatusIcon = $('#lastNameStatusIcon');
+        var emailStatusIcon = $('#emailStatusIcon');
+        var passwordStatusIcon = $('#passwordStatusIcon');
+        var repPasswordStatusIcon = $('#repPasswordStatusIcon');
+
+        //Input fields
+        var user = $('#id_username');
+        var email = $('#id_email');
+        var firstName = $('#id_firstName');
+        var lastName = $('#id_lastName');
+        var password = $('#id_password');
+        var repPass = $('#id_repeatPassword');
+        var submit = $('#registerBtn');
+
+        //Input groups
+        var user_group = $('#reg_username_group');
+        var firstName_group = $('#reg_firstName_group');
+        var lastName_group = $('#reg_lastName_group');
+        var email_group = $('#reg_email_group');
+        var password_group = $('#reg_password_group');
+        var password_conf_group = $('#reg_passwordConf_group');
+
+        var csrftoken = getCsrfToken();
+
+        var emailBoolean = true, pwBoolean = false, usernameBool = false, firstNameBool = false, lastNameBool = false;
+
+        user.blur(checkUserNotTaken);
+        firstName.blur(validateFirstName);
+        lastName.blur(validateLastName);
+        email.blur(checkEmailValid);
+        password.blur(checkPassword);
+        repPass.blur(checkRepeatPassword);
+        setSubmitButton();
+
+        function checkPassword() {
+          var passText = $('#divCheckPasswordValid');
+          if (password.val().length < 6) {
+            setErrorIcon(passwordStatusIcon);
+            setErrorClass(password_group);
+            pwBoolean = false;
+            setSubmitButton();
+            passText.text("Password should be at least 6 characters.")
+          } else {
+            setSuccessClass(password_group);
+            setSuccessIcon(passwordStatusIcon);
+            pwBoolean = true;
+            setSubmitButton();
+            passText.text("");
+          }
+        }
+
+        function checkRepeatPassword() {
+          var passText = $('#divCheckPasswordMatch');
+          if (repPass.val().length < 6 || repPass.val() != password.val()) {
+            setErrorIcon(repPasswordStatusIcon);
+            setErrorClass(password_conf_group);
+            pwBoolean = false;
+            setSubmitButton();
+            passText.text("Passwords do not match");
+          } else {
+            setSuccessClass(password_conf_group);
+            setSuccessIcon(repPasswordStatusIcon);
+            pwBoolean = true;
+            setSubmitButton();
+            passText.text("");
+          }
+        }
+
+        function validateFirstName() {
+          if (firstName.val().length == 0) {
+            setErrorClass(firstName_group);
+            setErrorIcon(firstNameStatusIcon);
+            firstNameBool = false;
+            setSubmitButton();
+          } else {
+            setSuccessClass(firstName_group);
+            setSuccessIcon(firstNameStatusIcon);
+            firstNameBool = true;
+            setSubmitButton();
+          }
+        }
+
+        function validateLastName() {
+          if (lastName.val().length == 0) {
+            setErrorClass(lastName_group);
+            setErrorIcon(lastNameStatusIcon);
+            lastNameBool = false;
+            setSubmitButton();
+          } else {
+            setSuccessClass(lastName_group);
+            setSuccessIcon(lastNameStatusIcon);
+            lastNameBool = true;
+            setSubmitButton();
+          }
+        }
+
+        function checkEmailValid() {
+          var emailVal = email.val();
+          var text = $("#emailText");
+          if (emailVal.length == 0 || !validateEmail(emailVal)) {
+            text.text("Please enter a valid e-mail address.");
+            setErrorIcon(emailStatusIcon);
+            setErrorClass(email_group);
+            emailBoolean = false;
+            setSubmitButton();
+          } else {
+            text.text("");
+            check_email_exists(updateEmailCheck);
+            setSubmitButton();
+          }
+        }
+
+        {% if username_error %}
+          setErrorIcon(userStatusIcon);
+          setErrorClass(user_group);
+          usernameBool = false;
+          setSubmitButton();
+        {% endif %}
+
+        {% if email_error %}
+          setErrorClass(email_group);
+          setErrorIcon(emailStatusIcon);
+          emailBoolean = true;
+          setSubmitButton();
+        {% endif %}
+
+        function checkUserNotTaken() {
+          var usernameErrorText = $("#usernameErrorText");
+          if (user.val().length < 6) {
+            setErrorIcon(userStatusIcon);
+            setErrorClass(user_group);
+            usernameErrorText.text("Username should be at least 6 characters!");
+            usernameBool = false;
+            setSubmitButton();
+          } else {
+            check_username_exists(updateUserNameCheck);
+          }
+        }
+
+        function updateUserNameCheck(response) {
+          var usernameErrorText = $("#usernameErrorText");
+          if (response == "yes") {
+            setErrorClass(user_group);
+            setErrorIcon(userStatusIcon);
+            usernameErrorText.text("Username already taken.");
+            usernameBool = false;
+          } else if (response == "no") {
+            setSuccessClass(user_group);
+            setSuccessIcon(userStatusIcon);
+            usernameErrorText.text("Username available.");
+            usernameBool = true;
+          }
+          setSubmitButton();
+        }
+
+        function updateEmailCheck(response) {
+          var text = $("#emailText");
+          if (response == "yes") {
+            setErrorClass(email_group);
+            setErrorIcon(emailStatusIcon);
+            text.text("Email already associated with an account.");
+            emailBoolean = false;
+          } else if (response == "no") {
+            setSuccessClass(email_group);
+            setSuccessIcon(emailStatusIcon);
+            text.text("");
+            emailBoolean = true;
+          }
+          setSubmitButton();
+        }
+
+        function check_username_exists(callback) {
+          $.ajax({
+            type: 'POST',
+            url: '/authentication/check-username/',
+            data: {
+              'username': user.val()
+            },
+            beforeSend: function (xhr, settings) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function (response) {
+              callback(response);
+            }
+          });
+        }
+
+        function check_email_exists(callback) {
+          $.ajax({
+            type: 'POST',
+            url: '/authentication/check-email/',
+            data: {
+              'email': email.val()
+            },
+            beforeSend: function (xhr, settings) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function (response) {
+              callback(response);
+            }
+          });
+        }
+
+        function setSubmitButton() {
+          submit.attr('disabled', !(
+              emailBoolean
+              && firstNameBool
+              && lastNameBool
+              && usernameBool
+              && pwBoolean)
+          );
+        }
+      </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+<div role="tabpanel" class="tab-pane fade in active min-height-500" id="lesson_{{ lesson.get_id }}">
+  <div class="bg-dark-gray min-height-50 padding-20 margin-bottom-30">
+    <h4>Briefing</h4>
+
+    <p>{{ lesson.get_briefing }}</p>
+  </div>
+
+  <div class="margin-bottom-30">
+    <h4>Introduction</h4>
+
+    <p>{{ lesson.get_introduction }}</p>
+  </div>
+  <h4>Assignments</h4>
+  {% for assignment in lesson.assignments %}
+    <div class="bg-light-gray min-height-100 margin-bottom-10">
+      <h5>Title: {{ assignment.get_title }}</h5>
+      <br>
+      <h5>Description</h5>{{ assignment.get_description }}
+      <br>
+      <pre class="prettyprint linenums:1">{{ assignment.get_content }}</pre>
+    </div>
+    <br>
+  {% endfor %}
+</div>
+<script>
+  $("#lesson_list_{{ lesson.get_id }}").siblings('li').removeClass('active');
+  $("#lesson_list_{{ lesson.get_id }}").addClass('active');
+</script>

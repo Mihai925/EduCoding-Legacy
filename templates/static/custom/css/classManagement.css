@@ -1,0 +1,91 @@
+html body {
+    background-color: rgba(0, 0, 0, 0.05)
+}
+
+html body > ul {
+    z-index: 1050 !important;
+}
+
+.left-menu {
+    list-style: none;
+    padding: 0
+}
+
+.left-menu li {
+    padding: 15px 15px
+}
+
+.left-menu li:hover {
+    background-color: #FFF;
+}
+
+.item {
+    padding: 15px;
+}
+
+.item:hover {
+    background-color: #FFF;
+}
+
+.student-name {
+    font-size: 14px;
+    margin: 10px;
+    position: relative;
+    top: 10px
+}
+
+.student-email {
+    font-size: 14px;
+    margin: 10px;
+    position: relative;
+}
+
+.change-to-hand-on-hover {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.auto-complete-dropdown > input {
+    z-index: 1040;
+}
+
+.student-avatar {
+    height: 40px;
+    width: 40px;
+    background-color: #FF0;
+    float: left;
+}
+
+.icon-success {
+    color: red;
+}
+
+.invite-email-box {
+    background-color: rgb(245, 245, 245);
+    color: rgb(0, 0, 0);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 80%;
+    word-wrap: break-word;
+}
+
+.invitation-list {
+    border: rgb(235, 235, 235) solid 1px;
+    color: rgb(0, 0, 0);
+    display: block;
+    font-family: arial, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    width: 80%;
+    line-height: 16px;
+    word-wrap: break-word;
+}

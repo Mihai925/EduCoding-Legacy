@@ -1,0 +1,22 @@
+{% extends 'base_user_menu.html' %}
+
+{% load AddCSSToTemplatesTag %}
+{% load staticfiles %}
+
+{% block CUSTOM_IMPORTS %}
+  <link rel='stylesheet' type='text/css' href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min.js"></script>
+{% endblock %}
+
+{% block CONTENT %}
+  <div class="col-lg-10" id="calendar"></div>
+  <script>
+    $(document).ready(function () {
+      // page is now ready, initialize the calendar...
+      $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        events: '/schedule/api/occurrences?calendar_slug=example'
+      })
+    });
+  </script>
+{% endblock %}

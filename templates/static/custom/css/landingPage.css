@@ -1,0 +1,12 @@
+.banner {
+    height: 240px;
+    background-color: #229E03;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200px auto;
+}
+
+.banner h1 {
+    padding-top: 170px;
+    color: white;
+}
