@@ -8,10 +8,10 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'codeaton',
-        'USER': 'codeaton',
-        'PASSWORD': 'uwM-KWo-Uy4-b9G',
-        'HOST': 'db4free.net',
+        'NAME': 'educoding',
+        'USER': 'educoding',
+        'PASSWORD': 'educoding',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }

@@ -1,9 +1,8 @@
 __author__ = 'varun'
 
 from django.conf.urls import url
-from .views import home_page, contact_us_form
+from .views import HomePageView
 
 urlpatterns = [
-    url(r'^contact_us/$', contact_us_form),
-    url(r'^$', home_page),
+    url(r'^$', HomePageView.as_view()),
 ]
