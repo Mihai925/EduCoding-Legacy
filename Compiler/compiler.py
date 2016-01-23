@@ -1,41 +1,25 @@
-import subprocess
-import os
+import requests
+from django.conf import settings
 
 
 class Compiler():
-    def __init__(self, code, file_name, program_input=None, reuse_file=None):
+    def __init__(self, code, language_id=0, program_input=""):
         self.code = code
-        self.file_name = file_name
-        self.input = program_input
-        self.reuse_file = False if reuse_file is None else reuse_file
-        self.file_path = os.path.dirname(os.path.realpath(__file__)) + '/hack_us/' + self.file_name
-        self.has_file = False
+        self.language_id = language_id
+        self.program_input = program_input
 
     def change_input(self, file_input):
-        self.input = file_input
+        self.program_input = file_input
 
     def compile(self):
-        current_dir_path = os.path.dirname(os.path.realpath(__file__))
-        if not self.has_file:
-            f = open(self.file_path, 'w')
-            f.write(self.code)
-            f.close()
-        command = current_dir_path + "/compile.sh python " + self.file_path + " " + ("" if self.input is None else ("\"" + self.input + "\""))
-        p = subprocess.Popen([command],
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE,
-                             shell=True)
-        (std_out, std_err) = p.communicate()
-
-        if not self.reuse_file:
-            self.remove_file()
-        else:
-            self.has_file = True
-        if std_err == '':
-            return std_out
-        return std_err
-
-
-    def remove_file(self):
-        os.remove(self.file_path)
-
+        r = None
+        try:
+            r = requests.post(settings.COMPILER_API,
+                              data={"language": self.language_id, "code": self.code, "stdin": self.program_input})
+        except Exception as e:
+            # Log the error, alert the monitors
+            pass
+        if r.ok:
+            return r
+        # log and alert
+        return None

@@ -23,6 +23,3 @@ class AutoTester():
     @staticmethod
     def __compare_outputs(expected_output, actual_output):
         return cmp(expected_output.split(), actual_output.split()) == 0
-
-    def remove_file(self):
-        self.compiler.remove_file()

@@ -44,7 +44,7 @@ class AllExercisesView(TemplateView):
 def submit_code(request):
     code = request.POST["code"]
 
-    compiler = Compiler(code, str(uuid4().get_hex().upper()[0:6]))
+    compiler = Compiler(code)
     output = compiler.compile()
     return HttpResponse(output)
 
