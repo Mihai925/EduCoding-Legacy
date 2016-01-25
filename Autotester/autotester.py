@@ -13,7 +13,7 @@ class AutoTester():
 
         if self.compiler is None:
 
-            self.compiler = Compiler(self.code, self.file_name, input, self.reuse_file)
+            self.compiler = Compiler(self.code)
         else:
             self.compiler.change_input(input)
 

@@ -3,7 +3,6 @@ from Autotester.models import ExerciseTests
 from Exercise.models import Exercise
 from Exercise.exercise_queries import get_assigned_exercise_for_students
 from .forms import ExerciseForm, NewExerciseForm
-from uuid import uuid4
 from Compiler.compiler import *
 from authentication.authenticate import group_required
 from django.views.generic import TemplateView, View
@@ -65,11 +64,11 @@ class ManageExercisesView(View):
         errors = []
         tests = [ExerciseTests.objects.create(input=input, expected_output=output) for (input, output) in
                  zip(request.POST.getlist("input_test"), request.POST.getlist("output_test"))]
-        title = request.POST["inputTitle"]
-        code = request.POST["code"]
+        title = request.POST.get("inputTitle", False)
+        code = request.POST.get("code", '')
         if not title:
             errors += ['Title field cannot be empty']
-        description = request.POST["inputDescription"]
+        description = request.POST.get("inputDescription", False)
         if not description:
             errors += ['Description field cannot be empty']
 

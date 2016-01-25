@@ -11,7 +11,7 @@ from UserProfile import urls as profile_urls
 
 home_page_pattern = []
 if USE_LANDING_PAGE:
-    home_page_pattern.append(url(r'^', include(landing_urls.urlpatterns)))
+    home_page_pattern.append(url(r'^$', include(landing_urls.urlpatterns)))
 else:
     home_page_pattern.append(url(r'^$', RedirectView.as_view(url='/authentication/')))
 
@@ -22,5 +22,5 @@ urlpatterns = patterns('',
                        url(r'^Class/', include(class_urls.urlpatterns)),
                        url(r'^Exercise/', include(exercise_urls.urlpatterns)),
                        url(r'^Profile/', include(profile_urls.urlpatterns)),
-                       url(r'^', include(home_page_pattern))
+                       url(r'^$', include(home_page_pattern))
 )

@@ -1,6 +1,7 @@
 from django.test import TestCase
 import autotester
 
+'''
 # Create your tests here.
 class AutotesterTest(TestCase):
     def setUp(self):
@@ -31,3 +32,4 @@ print sum(a, b)
         auto_tester = autotester.AutoTester(self.sum_incorrect, "test2.py")
 
         self.assertFalse(auto_tester.compare("1 3", "4"))
+'''

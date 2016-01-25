@@ -15,7 +15,6 @@ class HomePageView(View):
     template_name = "LandingPage/home_page.html"
     template_pars = {
         'login_form': LoginForm(),
-        'landing_page': get_landing_page_data(),
         'contact_us': ContactUsForm()
     }
 
@@ -24,6 +23,7 @@ class HomePageView(View):
 
     def post(self, request):
         form = ContactUsForm(request.POST)
+        self.template_pars['landing_page'] = get_landing_page_data()
         if form.is_valid():
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
