@@ -1,7 +1,459 @@
-.overflow-use-ellipsis {
-    width: 100% !important;
-    text-overflow: ellipsis !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-    white-space: nowrap !important;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.section-padding
+{
+	padding:30px 0px;
+}
+/**header**/
+#header
+{
+	background-color: #fff;
+}
+.banner
+{
+	background: url("image/bannerbg.jpg") no-repeat 0% 0% / 100% 100%;
+	padding-bottom: 150px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #9AD22D;
+    background-color: #fff;
+    }
+.navbar-default .navbar-brand  {
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    color: #9AD22D;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #A4A6A5;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+}
+.navbar-default .navbar-nav > li > a:hover
+{
+	color: #9AD22D;
+}
+.banner-text h2
+{
+	font-family: 'Raleway', serif;
+	color: #ffffff;
+	font-size: 58px;
+	padding: 150px 0 10px 0;
+}
+.banner-text h2 span
+{
+	color: #9AD22D;
+}
+.banner-text p {
+	font-size: 24px;
+	color: #fcffff;
+	padding-bottom: 10px;
+}
+.banner-text a
+{
+	font-size: 18px;
+	text-decoration: none;
+	padding: 10px 30px;
+	border-radius: 71px;
+	background-color: #9AD22D;
+	margin-top: 10px;
+	display: inline-block;
+	color: #fff;
+}
+.banner-text a:hover
+{
+	color:#fff;
+}
+.navbar-default {
+    background:none;
+}
+/**quote**/
+#quote-desc
+{
+	border-bottom: 1px solid #ccc;
+	padding: 40px 0px;
+}
+.desc-text p {
+	font-size: 36px;
+	font-family: 'Raleway', sans-serif;
+}
+.banner-text p span {
+	display: block;
+}
+/**feature**/
+.text-head h2
+{
+	font-family: 'Oswald', sans-serif;
+	font-size: 36px;
+	padding: 0px 0 10px 0;
+	color: #ccc;
+}
+.feature
+{
+	background-color: #ffffff;
+}
+.feature-head h3
+{
+	padding-bottom: 25px;
+}
+.text-head h2::after {
+    display: block;
+    margin: 17px auto 0px;
+    width: 70px;
+    height: 1px;
+    background: #19A9E5 none repeat scroll 0% 0%;
+    content: "";
+}
+.icon-set i{
+	color: #ccc;
+	font-size: 78px;
+	padding: 25px 0 20px 0;
+}
+.icon-text h3
+{
+	
+	font-size: 24px;
+	padding: 15px 0 10px 0px;
+}
+.icon-text p {
+	color: #0E0D0D;
+	font-size: 18px;
+	padding-bottom: 18px;
+	margin-bottom: 10px;
+	font-family: 'Montserrat', sans-serif;
+}
+.icon-small
+{
+	padding: 0px 20px;
+}
+.icon-small p
+{
+	letter-spacing: 1px;
+}
+.large-box h3
+{
+	font-family: 'Raleway', sans-serif;
+	color: #222;
+	font-size: 28px;
+	line-height: 10px;
+	line-height: 40px;
+	letter-spacing: 1px;
+}
+.large-box h3 span {
+	font-family: 'Oswald', sans-serif;
+	padding: 10px 0 10px 0;
+}
+.feat-btn
+{
+	padding: 35px 0 35px 0;
+}
+.feat-btn a {
+	padding: 15px;
+	background: #9AD22D;
+	margin-top: 25px;
+	padding: 8px 22px;
+	border-radius: 25px;
+	color: #FFF;
+	font-size: 18px;
+	text-decoration: none;
+	border: 1px solid #ffffff;
+}
+.feat-btn a:hover{
+	color: #9AD22D;
+	background-color: #ffffff;
+	border:1px solid #9AD22D;
+}
+.feature-post
+{
+	margin-top: 30px;
+}
+/**subscribe**/
+#subscribe
+{
+	background: url("image/bannerbg2.jpg") no-repeat fixed;
+	background-size: cover;
+}
+.sub-icon i {
+	color: #9AD22D;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	font-size: 188px;
+}
+.sub-text h3
+{
+	color: #ffffff;
+	font-family: 'Raleway', sans-serif;
+	font-size: 38px;
+}
+.sub-text p {
+	color:#ffffff ;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 3px;	
+}
+.sub-btn
+{
+	font-size: 18px;
+	text-decoration: none;
+	padding: 10px 20px;
+	border-radius: 3px;
+	color: #fff;
+	background-color: #19A9E5;
+	margin-top: 10px;
+	display: inline-block;
+}
+.sub-btn:hover
+{
+	color: #fff;
+	text-decoration: none;
+}
+/**portfolio**/
+.img-responsive {
+	margin: 10px 0 10px 0;
+}
+.img-portfolio img:hover
+{
+	opacity: 0.4;
+	cursor: pointer;
+}
+.large-box 
+{
+	padding-bottom: 25px;text-address h3
+}
+/**contact**/
+#contact
+{
+	border: 1px solid #ccc;
+	border-width: 1px 0px 1px;
+}
+
+.text-contact h3 {
+    font-family: "Raleway",sans-serif;
+   	color: #0e0e0e;
+    font-size: 28px;
+    line-height: 40px;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+}
+.form-group input, .form-group textarea
+{
+	background-color: rgba(25, 169, 229, 0.26);
+	border: 1px solid #ffffff;
+}
+.form-group textarea
+{
+	height:150px;
+	resize:none;
+}
+label {
+    color: #0e0e0e;
+    padding-bottom: 10px;
+}
+.btn-default {
+    color: #ffffff;
+    background-color: #19A9E5;
+    border-color: #CCC;
+    padding: 8px 30px;
+    }
+.text-address h3{
+	
+    	font-family: "Raleway",sans-serif;
+	    color: #0e0e0e;
+	    font-size: 28px;
+	    line-height: 40px;
+	    letter-spacing: 1px;
+	    padding-bottom: 12px;
+}
+.small-address p
+{
+	color:	#0e0e0e;
+	font-size:	20px;
+	padding-top: 5px;
+}
+.small-address p i{
+	color:	#9AD22D;
+	width:30px;
+	height: 30px;
+	line-height: 50px; 
+}
+/**footer**/
+.footer
+{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.footer-menu ul li a{
+	padding-right: 15px;
+}
+.icon-social nav li a
+{
+	color:#ccc;
+}
+.footer-link ul{
+	list-style: none;
+}
+.footer-line p {
+		color: #0E0D0D;
+		font-family: 'Montserrat', sans-serif;
+}
+.footer-line p a:hover {
+	color: #9AD22D;
+	text-decoration: dashed;
+}
+/**media Queries**/
+@media (min-width: 768px) and (max-width: 980px)
+{
+	.sub-text h3
+	{
+		font-size: 28px;
+	}
+	.sub-text p
+	{
+		font-size: 14px;
+	}
+	.img-portfolio
+	{
+		padding-bottom: 5px;
+	}
+}
+@media (min-width:360px ) and (max-width: 768px)
+{
+	.banner-text h2 {
+    font-size: 41px;
+    padding: 100px 0px 10px;
+	}
+	.quote-desc p {
+    font-size: 30px;
+    padding: 30px 0px;
+	}
+	.large-box h3 {
+    font-size: 25px;
+	}
+	.sub-icon i 
+	{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 100px;
+	}
+	.sub-text h3 {
+    padding-top: 20px;
+    font-size: 25px;
+	}
+	.sub-text p
+	{
+		font-size: 14px;
+	}
+	.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+	{
+    margin-bottom: 20px;
+	}
+	.small-address p {
+    font-size: 15px;
+	}
+	.btn-default {
+    padding: 4px 5px;
+	}
+	.text-contact h3 {
+    font-size: 20px;
+	}
+	.text-address h3 {
+    font-size: 24px;
+	}
+	.footer-line p {
+    font-size: 11px;
+}
+}
+@media (min-width:30px ) and (max-width: 360px)
+{
+	.banner-text h2 {
+    font-size: 32px;
+    padding: 50px 0px 10px;
+	}
+	.quote-desc p {
+    font-size: 18px;
+    padding: 30px 0px;
+	}
+	.large-box h3 {
+    font-size: 22px;
+	}
+	.sub-icon i 
+	{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 100px;
+	}
+	.sub-text h3 {
+    padding-top: 20px;
+    font-size: 25px;
+	}
+	.btn-default {
+    padding: 4px 5px;
+	}
+	.sub-text p
+	{
+		font-size: 14px;
+	}
+	.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+	{
+    margin-bottom: 20px;
+	}
+	.small-address p {
+    font-size: 15px;
+	}
+	.text-contact h3 {
+    font-size: 20px;
+	}
+	.text-address h3 {
+    font-size: 22px;
+	}
+	.footer-line p {
+    font-size: 10px;
+}
 }
