@@ -7,6 +7,8 @@ from Exercise import urls as exercise_urls
 from LandingPage import urls as landing_urls
 from .settings import USE_LANDING_PAGE
 from UserProfile import urls as profile_urls
+from settings import MEDIA_ROOT, MEDIA_URL
+from django.conf.urls.static import static
 
 
 home_page_pattern = []
@@ -23,4 +25,4 @@ urlpatterns = patterns('',
                        url(r'^Exercise/', include(exercise_urls.urlpatterns)),
                        url(r'^Profile/', include(profile_urls.urlpatterns)),
                        url(r'^$', include(home_page_pattern))
-)
+) + static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Feature, LandingPage
+from .models import Feature, LandingPage, Quotes
 
 
 @admin.register(LandingPage)
@@ -12,3 +12,5 @@ class LandingPageAdmin(admin.ModelAdmin):
 class FeatureAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'icon',)
     ordering = ('title',)
+
+admin.site.register(Quotes)
