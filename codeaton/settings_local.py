@@ -73,6 +73,9 @@ SMTP_USERNAME = "AKIAIJUZK5T7YN4GMIXQ"
 SMTP_PASSWORD = "AgbbsdsNQpvAPxyZCviQBTPaJdP2e46M8wSJxOjldacU"
 SMTP_FROM_EMAIL = "support@codeaton.com"
 USE_LANDING_PAGE = True
-
+COMPILER_API = "http://127.0.0.1:8089/compile"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
