@@ -1,6 +1,7 @@
 __author__ = 'varun'
 
 import os
+import sys
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -8,9 +9,14 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME':'/tmp/database.db',
+        'TEST_NAME':'/tmp/database_test.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
     }
 }
+
 
 LOGGING = {
     'version': 1,
