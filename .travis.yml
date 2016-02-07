@@ -10,6 +10,7 @@ env:
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=codeaton.settings
+  - pip install codecov
 
 install:
   - pip install -r requirements.txt
@@ -19,3 +20,6 @@ install:
 
 script:
   - python manage.py test
+
+after_success:
+  - codecov
