@@ -1,10 +1,10 @@
 __author__ = 'varun'
 
-from codeaton.settings import URL
+from educoding.settings import URL
 from .models import Invitation as InvitationModel
 from django.template import Context
 from django.template.loader import get_template
-from codeaton.settings import SMTP_FROM_EMAIL, SMTP_PASSWORD, SMTP_SERVER, SMTP_SERVER_PORT, SMTP_USERNAME
+from educoding.settings import SMTP_FROM_EMAIL, SMTP_PASSWORD, SMTP_SERVER, SMTP_SERVER_PORT, SMTP_USERNAME
 import uuid
 import smtplib
 import threading

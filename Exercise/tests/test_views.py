@@ -6,7 +6,7 @@ from ..forms import NewExerciseForm, ExerciseForm
 
 
 class ViewsTestCase(TestCase):
-    fixtures = ['codeaton/test_fixtures/test_fixture.json']
+    fixtures = ['educoding/test_fixtures/test_fixture.json']
 
     def setUp(self):
         setup_test_environment()

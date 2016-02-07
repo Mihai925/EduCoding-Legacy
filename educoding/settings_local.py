@@ -1,34 +1,22 @@
 __author__ = 'varun'
 
-from logentries import LogentriesHandler
 import os
-import logging
+import sys
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'codeaton_dev',
-        'USER': 'codeaton_dev',
-        'PASSWORD': '6nV-trE-5xZ-ger',
-        'HOST': 'codeaton-dev.cixo4mjprn2r.us-west-2.rds.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME':'/tmp/database.db',
+        'TEST_NAME':'/tmp/database_test.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
     }
 }
 
-SUBCRIPTION_SPREADSHEET_KEY = '1kz40sKd0w1LdsmjxQqi2ioYf7r4mVAtuvz-Dk40IHVE'
-SUBCRIPTION_WORKSHEET_KEY = 'od6'
-
-URL = "http://test-dev.codeaton.com"
-
-SMTP_SERVER = "email-smtp.us-east-1.amazonaws.com"
-SMTP_SERVER_PORT = 587
-SMTP_USERNAME = "AKIAIJUZK5T7YN4GMIXQ"
-SMTP_PASSWORD = "AgbbsdsNQpvAPxyZCviQBTPaJdP2e46M8wSJxOjldacU"
-SMTP_FROM_EMAIL = "support@codeaton.com"
-USE_LANDING_PAGE = True
 
 LOGGING = {
     'version': 1,
@@ -52,10 +40,6 @@ LOGGING = {
             'backupCount': 2,
             'formatter': 'standard',
         },
-        'logentries_handler': {
-            'token': 'a1658621-8394-430a-898e-855194003ba5',
-            'class': 'logentries.LogentriesHandler'
-        },
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
@@ -64,11 +48,11 @@ LOGGING = {
     },
     'loggers': {
         '': {
-            'handlers': ['console', 'logfile', 'logentries_handler'],
+            'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
         },
         'django': {
-            'handlers': ['console', 'logfile', 'logentries_handler'],
+            'handlers': ['console'],
             'propagate': True,
             'level': 'WARN',
         },
@@ -80,5 +64,20 @@ LOGGING = {
     }
 }
 
+SUBCRIPTION_SPREADSHEET_KEY = '1kz40sKd0w1LdsmjxQqi2ioYf7r4mVAtuvz-Dk40IHVE'
+SUBCRIPTION_WORKSHEET_KEY = 'od6'
+
+URL = "http://127.0.0.1:8000"
+
+SMTP_SERVER = "email-smtp.us-east-1.amazonaws.com"
+SMTP_SERVER_PORT = 587
+SMTP_USERNAME = "AKIAIJUZK5T7YN4GMIXQ"
+SMTP_PASSWORD = "AgbbsdsNQpvAPxyZCviQBTPaJdP2e46M8wSJxOjldacU"
+SMTP_FROM_EMAIL = "support@educoding.com"
+USE_LANDING_PAGE = True
+COMPILER_API = "http://127.0.0.1:8089/compile"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"

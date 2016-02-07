@@ -51,9 +51,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'codeaton.urls'
+ROOT_URLCONF = 'educoding.urls'
 
-WSGI_APPLICATION = 'codeaton.wsgi.application'
+WSGI_APPLICATION = 'educoding.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -107,7 +107,7 @@ AUTH_PROFILE_MODULE = "model.models.UserProfile"
 GOOGLE_DRIVE_USERNAME = "codeaton15@gmail.com"
 GOOGLE_DRIVE_PASSWORD = "Codeaton2015"
 GOOGLE_DRIVE_FOLDER_KEY = '1HUjusmHI41AbmrvcUkh_8gs-Z3kMKWSJopS1B_Z-BQM'
-HELLO_EMAIL = "hello@codeaton.com"
+HELLO_EMAIL = "hello@educoding.com"
 
 LOGIN_URL = "/"
 LOGOUT_URL = "/authentication/logout"

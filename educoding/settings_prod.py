@@ -8,10 +8,10 @@ SUBCRIPTION_WORKSHEET_KEY = 'od6'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'codeaton',
-        'USER': 'codeaton',
+        'NAME': 'educoding',
+        'USER': 'educoding',
         'PASSWORD': '6nV-trE-5xZ-ger',
-        'HOST': 'codeaton-db.cixo4mjprn2r.us-west-2.rds.amazonaws.com',
+        'HOST': 'educoding-db.cixo4mjprn2r.us-west-2.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -66,12 +66,12 @@ LOGGING = {
     }
 }
 
-URL = "http://www.codeaton.co"
+URL = "http://www.educoding.co"
 SMTP_SERVER = "email-smtp.us-east-1.amazonaws.com"
 SMTP_SERVER_PORT = 587
 SMTP_USERNAME = "AKIAIJUZK5T7YN4GMIXQ"
 SMTP_PASSWORD = "AgbbsdsNQpvAPxyZCviQBTPaJdP2e46M8wSJxOjldacU"
-SMTP_FROM_EMAIL = "support@codeaton.com"
+SMTP_FROM_EMAIL = "support@educoding.com"
 USE_LANDING_PAGE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!

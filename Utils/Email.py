@@ -1,6 +1,6 @@
 __author__ = 'varun'
 
-from codeaton.settings import SMTP_FROM_EMAIL, SMTP_PASSWORD, SMTP_SERVER, SMTP_SERVER_PORT, SMTP_USERNAME
+from educoding.settings import SMTP_FROM_EMAIL, SMTP_PASSWORD, SMTP_SERVER, SMTP_SERVER_PORT, SMTP_USERNAME
 import smtplib
 import logging
 

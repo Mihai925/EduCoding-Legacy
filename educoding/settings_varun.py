@@ -7,8 +7,8 @@ __author__ = 'varun'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'codeaton',
-        'USER': 'codeaton',
+        'NAME': 'educoding',
+        'USER': 'educoding',
         'PASSWORD': 'uwM-KWo-Uy4-b9G',
         'HOST': 'db4free.net',
         'PORT': '3306',
