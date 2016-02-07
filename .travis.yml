@@ -21,4 +21,5 @@ before_script:
   - psql -c "CREATE DATABASE mydb;" -U postgres
 
 script:
+  - python manage.py syncdb
   - python manage.py test
