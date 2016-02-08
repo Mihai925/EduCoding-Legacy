@@ -10,7 +10,7 @@ from .authenticate import login_user, logout_user, does_username_exist, register
     does_user_with_email_exist
 from .subscription import add_subscriber
 from Utils.user_utils import is_student, is_teacher
-from Class.Invitations import Invitation
+
 
 
 LOGGER = logging.getLogger(__name__)
@@ -98,7 +98,7 @@ def register_student(request):
         register_form.clean()
         try:
             invitation_code = request.session["invitation_code"]
-            invitation = Invitation(invitation_code=invitation_code)
+
             username = register_form.cleaned_data["username"]
             password = register_form.cleaned_data["password"]
             first_name = register_form.cleaned_data["firstName"]
@@ -112,9 +112,9 @@ def register_student(request):
                                              errors={"email_error": "An account with this email already exists."},
                                              form=register_form)
             register_student_in_db(username, password, email, first_name, last_name)
-            invitation.add_student_to_class()
+
             request.session["invitation_code"] = ""
-            invitation.remove_invitation()
+
         except KeyError as e:
             LOGGER.error(e)
         except Exception as e:

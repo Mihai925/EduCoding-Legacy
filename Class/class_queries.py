@@ -1,4 +1,4 @@
-from .models import Class, Invitation
+from .models import Class
 from django.contrib.auth.models import User
 
 
@@ -45,11 +45,3 @@ def add_new_class(class_name, class_description, teacher):
     new_class.save()
     new_class.teacher.add(teacher)
     new_class.save()
-
-
-def get_invitations_for_class(class_id):
-    invites = Invitation.objects.filter(class_to_add=Class.objects.get(cls_id=class_id))
-    response = []
-    for inv in invites:
-        response.append((inv.student_email, inv.invitation_id))
-    return response

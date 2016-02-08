@@ -31,7 +31,6 @@ INSTALLED_APPS = (
     "Utils",
     'django_ace',
     'selectable',
-    'schedule',
     'LandingPage',
     'UserProfile',
     'Autotester'
@@ -129,7 +128,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'logfile': {
             'level': 'DEBUG',

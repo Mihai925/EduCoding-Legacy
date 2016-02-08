@@ -1,7 +1,6 @@
 from django.http import HttpResponse, HttpResponseServerError, HttpResponseBadRequest
 from .class_queries import get_class_by_teacher, get_students_by_class_id, remove_student_by_class_id_and_username, \
-    add_new_class, delete_class as remove_class, get_invitations_for_class
-from .Invitations import send_invites, send_invitation_email, delete_invitation as delete_invitation_model
+    add_new_class, delete_class as remove_class
 from .forms import AddStudentForm
 from authentication.authenticate import group_required
 from django.contrib.auth.decorators import login_required
@@ -69,8 +68,8 @@ def send_invites_to_students(request):
     try:
         invites = eval(request.GET["invites"])
         class_id = eval(request.GET["class_id"])
-        if send_invites(invites, request.user, class_id):
-            return HttpResponse("")
+        #if send_invites(invites, request.user, class_id):
+        #    return HttpResponse("")
     except Exception as e:
         return HttpResponseBadRequest(e.message)
 
@@ -97,14 +96,14 @@ def delete_class(request):
 @login_required
 @group_required(TEACHER_GROUP)
 def resend_invitation(request, invitation_id):
-    if send_invitation_email(invitation_id, request.user):
-        return HttpResponse("")
+    #if send_invitation_email(invitation_id, request.user):
+    #    return HttpResponse("")
     return HttpResponseServerError("Not authenticated for this. Please login first.")
 
 
 @login_required
 @group_required(TEACHER_GROUP)
 def delete_invitation(request, invitation_id):
-    if delete_invitation_model(invitation_id, request.user):
-        return HttpResponse("")
+    #if delete_invitation_model(invitation_id, request.user):
+    #    return HttpResponse("")
     return HttpResponseServerError("Not authenticated for this. Please login first.")

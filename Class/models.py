@@ -18,15 +18,3 @@ class Class(models.Model):
 
     def __unicode__(self):
         return self.__str__()
-
-
-class Invitation(models.Model):
-    invitation_id = models.AutoField("Invitation id", primary_key=True, blank=True)
-    teacher = models.ForeignKey(User, related_name="Teacher")
-    student_email = models.CharField("Student Email", max_length=100)
-    invitation_code = models.CharField("Invitation Code", max_length=100)
-    created_date = models.DateTimeField(auto_now=True, default=timezone.now)
-    class_to_add = models.ForeignKey(Class, blank=True, null=True)
-
-    class Meta:
-        unique_together = (("invitation_code",),)

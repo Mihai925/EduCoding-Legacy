@@ -1,7 +1,7 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+
 from .class_queries import *
-from .Invitations import Invitation
+
 
 
 class ClassQuerysTest(TestCase):
@@ -83,37 +83,6 @@ class ClassQuerysTest(TestCase):
                 self.fail()
         # ClassManagement.objects.get(cls_id=cls_id).students.add(student)
         pass
-
-
-class InvitationsTest(TestCase):
-    def setUp(self):
-        self.tch1 = User.objects.create_user("varun", "abc@abcd.com", "abcd")
-        self.tch2 = User.objects.create_user("jiplea", "abc@abcd.com", "abcd")
-
-        self.std1_email = "stud1@code.com"
-        self.std2_email = "stud2@code.com"
-        self.std3_email = "stud3@code.com"
-        self.std4_email = "stud4@code.com"
-        self.std5_email = "stud5@code.com"
-        self.std6_email = "stud6@code.com"
-
-    def test_unique_hash_code(self):
-        invitation_code_list = []
-        invite1 = Invitation(self.tch1, self.std1_email)
-        self.assertTrue(invitation_code_list.count(invite1.invitation_code) == 0)
-        invitation_code_list.append(invite1.invitation_code)
-        self.assertTrue(invitation_code_list.count(invite1.invitation_code) == 1)
-
-        invite2 = Invitation(self.tch1, self.std1_email)
-        self.assertTrue(invitation_code_list.count(invite2.invitation_code) == 0)
-        invitation_code_list.append(invite2.invitation_code)
-        self.assertTrue(invitation_code_list.count(invite2.invitation_code) == 1)
-
-        invite3 = Invitation(self.tch1, self.std1_email)
-        self.assertTrue(invitation_code_list.count(invite3.invitation_code) == 0)
-        invitation_code_list.append(invite3.invitation_code)
-        self.assertTrue(invitation_code_list.count(invite3.invitation_code) == 1)
-
 
 
 
