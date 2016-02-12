@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY','')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 TEMPLATE_DEBUG = True
 
@@ -108,11 +108,11 @@ LOGOUT_URL = "/authentication/logout"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME',''),
-        'USER': os.environ.get('DB_USER',''),
-        'PASSWORD': os.environ.get('DB_PASSWORD',''),
-        'HOST': os.environ.get('DB_HOST',''),
-        'PORT': os.environ.get('DB_PORT',''),
+        'NAME': os.environ.get('DB_NAME', ''),
+        'USER': os.environ.get('DB_USER', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', ''),
+        'PORT': os.environ.get('DB_PORT', ''),
     }
 }
 
@@ -164,12 +164,12 @@ LOGGING = {
 }
 
 #E-mail setup:
-EMAIL_USE_TLS = json.loads(os.environ.get('EMAIL_USE_TLS','').lower())
-EMAIL_USE_SSL = json.loads(os.environ.get('EMAIL_USE_SSL','').lower())
-EMAIL_HOST = os.environ.get('EMAIL_HOST','')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER','')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_USER','')
-EMAIL_PORT = os.environ.get('EMAIL_PORT','')
+EMAIL_USE_TLS = json.loads(os.environ.get('EMAIL_USE_TLS', '').lower())
+EMAIL_USE_SSL = json.loads(os.environ.get('EMAIL_USE_SSL', '').lower())
+EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', '')
 
 COMPILER_API = os.environ.get('COMPILER_API','')
 # SECURITY WARNING: don't run with debug turned on in production!
