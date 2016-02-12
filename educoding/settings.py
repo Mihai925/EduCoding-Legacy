@@ -1,4 +1,5 @@
 import os
+import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -162,13 +163,17 @@ LOGGING = {
     }
 }
 
-
-
-URL = os.environ.get('DEBUG','')
+#E-mail setup:
+EMAIL_USE_TLS = json.loads(os.environ.get('EMAIL_USE_TLS','').lower())
+EMAIL_USE_SSL = json.loads(os.environ.get('EMAIL_USE_SSL','').lower())
+EMAIL_HOST = os.environ.get('EMAIL_HOST','')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER','')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_USER','')
+EMAIL_PORT = os.environ.get('EMAIL_PORT','')
 
 COMPILER_API = os.environ.get('COMPILER_API','')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG','')
+DEBUG = json.loads(os.environ.get('DEBUG','').lower())
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
