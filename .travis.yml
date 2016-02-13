@@ -3,13 +3,13 @@ language: python
 python:
   - 2.7
 
-services: mysql
+services: postgresql
 
 env:
-  - DJANGO=1.7.4 DB=mysql
+  - DJANGO=1.7.4 DB=postgresql
 
 before_script:
- - mysql -e 'create database educoding_test;'
+ - psql -c 'create database educoding_test;' -U postgres
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=educoding.settings

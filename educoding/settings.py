@@ -3,11 +3,6 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 TEMPLATE_DEBUG = True
@@ -19,6 +14,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django_ses',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -107,7 +103,7 @@ LOGOUT_URL = "/authentication/logout"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_NAME', ''),
         'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
@@ -163,17 +159,17 @@ LOGGING = {
     }
 }
 
-#E-mail setup:
-EMAIL_USE_TLS = json.loads(os.environ.get('EMAIL_USE_TLS', '').lower())
-EMAIL_USE_SSL = json.loads(os.environ.get('EMAIL_USE_SSL', '').lower())
-EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_USER', '')
-EMAIL_PORT = os.environ.get('EMAIL_PORT', '')
+#E-mail setup for SES:
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY', '')
+AWS_SES_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_SECRET_ACCESS_KEY', '')
+AWS_SES_REGION_NAME = os.environ.get('AWS_SES_REGION_NAME', '')
+AWS_SES_REGION_ENDPOINT = os.environ.get('AWS_SES_REGION_ENDPOINT', '')
 
-COMPILER_API = os.environ.get('COMPILER_API','')
+
+COMPILER_API = os.environ.get('COMPILER_API', '')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = json.loads(os.environ.get('DEBUG','').lower())
+DEBUG = json.loads(os.environ.get('DEBUG', '').lower())
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"

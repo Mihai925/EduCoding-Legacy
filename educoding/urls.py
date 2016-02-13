@@ -20,3 +20,4 @@ urlpatterns = patterns('',
                        url(r'^Profile/', include(profile_urls.urlpatterns)),
                        url(r'^$', include(home_page_pattern))
 ) + static(MEDIA_URL, document_root=MEDIA_ROOT)
+urlpatterns += (url(r'^admin/django-ses/', include('django_ses.urls')),)
