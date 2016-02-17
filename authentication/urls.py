@@ -1,8 +1,6 @@
-__author__ = 'varun'
-
 from django.conf.urls import url
 from .views import login, logout, register_student, check_username, authentication_page, subscribe_user, \
-    register_student_page, automatic_login_student, automatic_login_teacher, check_email
+    register_student_page, automatic_login_student, automatic_login_teacher, check_email, TeacherRegistration
 
 urlpatterns = [
     url(r'^$', authentication_page),
@@ -13,6 +11,7 @@ urlpatterns = [
     url(r'^register/student/$', register_student),
     url(r'^check-username', check_username),
     url(r'^check-email/$', check_email),
+    url(r'register_student/$', TeacherRegistration.as_view()),
     url(r'^register/student/(\w+)/$', register_student_page),
     url(r'^subscribe', subscribe_user),
 ]

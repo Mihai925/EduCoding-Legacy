@@ -4,8 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.template import Context
 from django.template.loader import get_template
 from django.core.context_processors import csrf
+from django.views.generic.edit import FormView
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, TeacherRegistrationForm
 from .authenticate import login_user, logout_user, does_username_exist, register_student as register_student_in_db, \
     does_user_with_email_exist
 from .subscription import add_subscriber
@@ -15,6 +16,11 @@ from Utils.user_utils import is_student, is_teacher
 
 LOGGER = logging.getLogger(__name__)
 
+
+class TeacherRegistration(FormView):
+    template_name = 'authentication/teacher_registration.html'
+    success_url = '/'
+    form_class = TeacherRegistrationForm
 
 def login(request):
     login_form = LoginForm(request.POST)

@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
+/*
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -22,7 +22,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-}
+}*/
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -282,11 +282,6 @@ table {
     letter-spacing: 1px;
     padding-bottom: 10px;
 }
-.form-group input, .form-group textarea
-{
-	background-color: rgba(25, 169, 229, 0.26);
-	border: 1px solid #ffffff;
-}
 .form-group textarea
 {
 	height:150px;
@@ -297,9 +292,6 @@ label {
     padding-bottom: 10px;
 }
 .btn-default {
-    color: #ffffff;
-    background-color: #19A9E5;
-    border-color: #CCC;
     padding: 8px 30px;
     }
 .text-address h3{
