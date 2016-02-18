@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^register/student/$', register_student),
     url(r'^check-username', check_username),
     url(r'^check-email/$', check_email),
-    url(r'register_student/$', TeacherRegistration.as_view()),
+    url(r'register_teacher/$', TeacherRegistration.as_view()),
     url(r'^register/student/(\w+)/$', register_student_page),
     url(r'^subscribe', subscribe_user),
 ]
