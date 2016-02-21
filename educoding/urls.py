@@ -19,7 +19,7 @@ urlpatterns = patterns('',
                        url(r'^Class/', include(class_urls.urlpatterns)),
                        url(r'^Exercise/', include(exercise_urls.urlpatterns)),
                        url(r'^Profile/', include(profile_urls.urlpatterns)),
-                       url(r'^reg/', include(auth_urls)),
+                       url(r'^', include(auth_urls)),
                        url(r'^$', include(home_page_pattern))
 ) + static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += (url(r'^admin/django-ses/', include('django_ses.urls')),)

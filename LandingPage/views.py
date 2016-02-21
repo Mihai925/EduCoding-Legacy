@@ -1,5 +1,4 @@
 from django.template import RequestContext
-from authentication.forms import LoginForm
 from .models import Quotes
 from .forms import ContactUsForm
 from .queries import get_landing_page_data
@@ -14,7 +13,7 @@ LOGGER = logging.getLogger(__name__)
 class HomePageView(View):
     template_name = "LandingPage/home_page.html"
     template_pars = {
-        'login_form': LoginForm(),
+
         'contact_us': ContactUsForm()
     }
 

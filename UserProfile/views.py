@@ -4,7 +4,6 @@ from django.template import RequestContext
 from django.template.loader import get_template
 from django.core.context_processors import csrf
 from .forms import UserProfileForm
-from authentication.authenticate import check_username_password_is_valid
 
 
 @login_required
@@ -33,8 +32,8 @@ def update_user_profile(request):
         request.user.first_name = first_name
         request.user.last_name = last_name
         request.user.email = email
-        if check_username_password_is_valid(username=request.user.username,
-                                            password=password) and new_password is repeat_new_password:
-            request.user.set_password(new_password)
+        #if check_username_password_is_valid(username=request.user.username,
+        #                                    password=password) and new_password is repeat_new_password:
+        #    request.user.set_password(new_password)
         request.user.save()
     return HttpResponseRedirect("/Profile/")

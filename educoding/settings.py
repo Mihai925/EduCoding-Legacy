@@ -22,14 +22,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Custom apps
+    'authentication',
     'Exercise',
     'Compiler',
     'Class',
     "Utils",
     'django_ace',
+    'widget_tweaks',
     'selectable',
     'LandingPage',
-    'UserProfile',
     'Autotester'
 )
 

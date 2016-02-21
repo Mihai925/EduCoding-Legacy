@@ -10,6 +10,7 @@ from Exercise.exercise_queries import *
 #Test: submit the exercise to the database
 #Test: select an exercise based on exercise id
 
+
 class ExercisesTestCase(TestCase):
 
 
