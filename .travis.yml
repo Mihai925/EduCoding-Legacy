@@ -6,7 +6,7 @@ python:
 services: postgresql
 
 env:
-  - DJANGO=1.7.4 DB=postgresql
+  - DJANGO=1.9.2 DB=postgresql
 
 before_script:
  - psql -c 'create database educoding_test;' -U postgres
