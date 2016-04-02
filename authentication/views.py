@@ -29,6 +29,7 @@ class TeacherRegistration(CreateView):
             return HttpResponseRedirect('/')
         return super(TeacherRegistration, self).get(request)
 
+
     def get_success_url(self):
         Group.objects.get_or_create(name='Teacher')[0].user_set.add(self.object)
         return super(TeacherRegistration, self).get_success_url()

@@ -36,10 +36,6 @@ class TeacherRegistrationTestCase(TestCase):
 
     def test_teacher_registration(self):
         invitation_code = AutoFixture(Invitation, generate_fk=True).create(1)[0].invitation_code
-        #group = Group.objects.create(name='Teacher')
-        #print "created group", group
-        #Group.objects.get(name='teacher')
-        #group.save()
         response = self.client.post('/register_teacher', {'username': 'test@test.me', 'password': 'Test12345',
                                                           'first_name': 'Johnny', 'last_name': 'Bravo',
                                                           'invitation_code': invitation_code})

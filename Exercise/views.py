@@ -80,3 +80,5 @@ class ManageExercisesView(View):
             'errors': errors
         }
         return render(request, self.template_name, template_pars)
+
+
