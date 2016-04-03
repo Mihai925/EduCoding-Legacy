@@ -28,7 +28,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#feature">Feature</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -116,6 +116,49 @@
 
         </div>
     </div>
+    <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog normal-fonts modal-sm">
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" style="text-align-last: center">Login</h2>
+                </div>
+                <div class="modal-body">
+
+                    <form method="post" action='/login/' class="form">{% csrf_token %}
+                        <div class="modal-panel-body">
+                            <div class="row">
+                                <label for="username">Email</label>
+                            </div>
+                            <div class="row">
+                                <div class="form-group input-group col-md-12">
+                                    <input type="text" name="username" class="form-control" id="username" placeholder="Enter Email" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group input-group col-md-12">
+
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <!--contact ends-->
     <!--footer starts-->
     <footer class="footer">
