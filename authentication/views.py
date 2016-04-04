@@ -73,6 +73,7 @@ class LoginView(FormView):
     def form_valid(self, form):
         print "Getting user"
         user = authenticate(username=self.request.POST['username'], password=self.request.POST['password'])
+        print user
         if user is None:
             return redirect('/')
         login(self.request, form.get_user())
@@ -80,6 +81,9 @@ class LoginView(FormView):
         if self.request.session.test_cookie_worked():
             self.request.session.delete_test_cookie()
         return super(LoginView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return redirect('/')
 
     def get_success_url(self):
         return self.success_url
