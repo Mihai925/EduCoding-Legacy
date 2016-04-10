@@ -23,6 +23,7 @@ INSTALLED_APPS = (
 
     # Custom apps
     'authentication',
+    'Panel',
     'Exercise',
     'Compiler',
     'Class',

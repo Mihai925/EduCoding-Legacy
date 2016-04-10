@@ -54,7 +54,7 @@ class LoginView(FormView):
     Provides the ability to login (with username/email and password)
     """
 
-    success_url = '/success/'
+    success_url = '/panel/'
     form_class = AuthenticationForm
     redirect_field_name = REDIRECT_FIELD_NAME
 
