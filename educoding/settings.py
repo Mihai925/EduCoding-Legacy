@@ -21,18 +21,22 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Custom apps
+    # My apps
     'authentication',
     'Panel',
     'Exercise',
     'Compiler',
     'Class',
     "Utils",
+
+    'LandingPage',
+    'Autotester',
+
+    #3rd Party
     'django_ace',
     'widget_tweaks',
     'selectable',
-    'LandingPage',
-    'Autotester'
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
