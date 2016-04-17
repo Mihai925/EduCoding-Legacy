@@ -1,19 +1,16 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% load AddCSSToTemplatesTag %}
-
-{% block CUSTOM_IMPORTS %}
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700|Raleway:400,100,200,300,600'
-        rel='stylesheet' type='text/css'>
-{% endblock %}
-{% block HEAD %}
-
-{% endblock %}
-{% block BODY %}
+<!DOCTYPE html>
 {% load i18n %}
-{% block FULL_WIDTH %}
-{% endblock %}
-  <body id="page-top" class="index">
+{% load AddCSSToTemplatesTag %}
+<html>
+<head lang="en">
+    <title>EduCoding</title>
+    {% include 'reusables/header_imports.html' %}
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700|Raleway:400,100,200,300,600'
+        rel='stylesheet' type='text/css'>
+
+</head>
+
+<body id="page-top" class="index">
 
     <!--header section-->
     <header class="header">
@@ -160,7 +157,6 @@
         </div>
     </div>
 
-
     <!--contact ends-->
     <!--footer starts-->
     <footer class="footer">
@@ -192,4 +188,3 @@
               });
             });
     </script>
-{% endblock %}

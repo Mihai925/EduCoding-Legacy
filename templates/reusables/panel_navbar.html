@@ -1,0 +1,37 @@
+<ul id="menu" class="nav nav-pills nav-stacked sidebar pull-left">
+
+
+    {% if perms.Class.change_class %}
+        <li>
+            <a href="/Class/" class="sidebar-link">
+                <div class="item-media">
+                    <span class="fa fa-fw fa-2x fa-users"></span>
+                </div>
+                <div class="item-inner">Classes</div>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if perms.Exercise.attempt_exercise %}
+        <li>
+            <a href="/Exercise/student/" class="sidebar-link">
+                <div class="item-media">
+                    <span class="fa fa-fw fa-2x fa-pencil"></span>
+                </div>
+                <div class="item-inner">Exercises</div>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if perms.Exercise.change_exercises %}
+        <li>
+            <a href="/Exercise/manage/" class="sidebar-link">
+                <div class="item-media">
+                    <span class="fa fa-fw fa-2x fa-pencil"></span>
+                </div>
+                <div class="item-inner">Manage Exercises</div>
+            </a>
+        </li>
+    {% endif %}
+
+</ul>

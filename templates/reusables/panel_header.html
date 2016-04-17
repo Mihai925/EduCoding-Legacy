@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <title>EduCoding</title>
-  {% include 'reusables/header_imports.html' %}
-  {% block CUSTOM_IMPORTS %}
-  {% endblock %}
-  {% load static %}
-</head>
-  <body>
-
-
-  {% block NAVBAR %}
-  {% comment %}
+{% load staticfiles %}
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -49,26 +36,3 @@
     </div>
     <!-- /.container-fluid -->
   </nav>
-  {% endcomment %}
-{% endblock %}
-
-{% block FULL_WIDTH %}
-  <div class="container" style="width: 100%; padding-left:0;">
-    <br><br><br>
-    {% block MAIN_CONTENT %}
-      <div class="col-lg-2" style="position: fixed; padding-left: 0;">
-        {% block LEFT_MENU %}
-        {% endblock %}
-      </div>
-      <div class="col-lg-offset-2">
-        {% block CONTENT %}
-        {% endblock %}
-      </div>
-    {% endblock %}
-  </div>
-{% endblock %}
-
-  {% block BODY %}
-  {% endblock %}
-  </body>
-</html>

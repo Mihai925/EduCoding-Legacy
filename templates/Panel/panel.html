@@ -1,8 +1,26 @@
-{% extends 'base_user_menu.html' %}
+<!DOCTYPE html>
+{% load i18n %}
 {% load AddCSSToTemplatesTag %}
 {% load staticfiles %}
-{% block CUSTOM_IMPORTS %}
-    <link href="{% static "custom/css/panel.css" %}" rel="stylesheet">
-    <link href="{% static "custom/css/panel.css" %}" rel="stylesheet">
-    <script src="{% static "ladda/ladda.min.js" %}"></script>
-{% endblock %}
+<html>
+<head lang="en">
+    <link href="{% static 'custom/css/panel.css' %}" rel="stylesheet" />
+    <script src="{% static 'ladda/ladda.min.js' %}"></script>
+    {% include 'reusables/header_imports.html' %}
+    <title>{% trans 'Panel' %}</title>
+</head>
+<body>
+    {% include 'reusables/panel_header.html' %}
+    <div class="container" style="width: 100%; padding-left:0;">
+        <br /><br /><br />
+        <div class="col-lg-2" style="position: fixed; padding-left: 0;">
+            {% include 'reusables/panel_navbar.html' %}
+        </div>
+        <div class="col-lg-offset-2">
+            {% block CONTENT %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>
