@@ -44,7 +44,6 @@ class TeacherRegistration(CreateView):
         return super(TeacherRegistration, self).get_success_url()
 
     def form_valid(self, form):
-        print self.request.POST['invitation_code']
         form.instance.email = form.instance.username
         return super(TeacherRegistration, self).form_valid(form)
 

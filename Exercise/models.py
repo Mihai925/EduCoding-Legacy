@@ -12,6 +12,7 @@ class Exercise(models.Model):
     content = models.TextField('Content', blank=False)
     classes_assigned_to = models.ManyToManyField(Class, blank=True)
     tests = models.ManyToManyField(ExerciseTests, blank=True)
+
     def __repr__(self):
         return self.__str__()
 

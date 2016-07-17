@@ -1,8 +1,11 @@
-__author__ = 'varun'
-
+from Class.api.views import ClassViewSet
 from django.conf.urls import url
+from rest_framework import routers
 from .views import ClassManagementHomeView, ClassStudentsView, remove_student_from_class, \
     send_invites_to_students, create_new_class, delete_class, resend_invitation, delete_invitation
+
+router = routers.DefaultRouter()
+router.register(r'classes', ClassViewSet, base_name="classes")
 
 urlpatterns = [
     url(r'^$', ClassManagementHomeView.as_view()),

@@ -1,8 +1,12 @@
 __author__ = 'varun'
 
-from django.conf.urls import url
+from django.conf.urls import url, include
 from .views import AllExercisesView, SingleExerciseEditorView, submit_code, ManageExercisesView
-from authentication.authenticate import group_required
+from rest_framework import routers
+from Exercise.api.views import ExerciseViewSet
+
+router = routers.DefaultRouter()
+router.register(r'exercises', ExerciseViewSet, base_name="exercises")
 
 urlpatterns = [
     url(r'^student/single_ex/(\d+)/$', SingleExerciseEditorView.as_view(), name="single_ex"),

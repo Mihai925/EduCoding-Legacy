@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .class_queries import *
+from Class.class_queries import *
 
 
 
