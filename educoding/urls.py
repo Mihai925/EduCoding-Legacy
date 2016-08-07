@@ -14,7 +14,7 @@ from django.conf.urls.static import static
 home_page_pattern = [url(r'^$', include(landing_urls.urlpatterns))]
 
 urlpatterns = patterns('',
-                       url(r'^', include(exercise_urls.router.urls + class_urls.router.urls)),
+
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^selectable/', include('selectable.urls')),
                        url(r'^authentication/', include(auth_urls.urlpatterns)),
@@ -24,6 +24,7 @@ urlpatterns = patterns('',
                        url(r'', include(panel_urls.urlpatterns)),
                        url(r'^', include(auth_urls)),
                        url(r'^$', include(home_page_pattern)),
-                       url(r'^api/', include('rest_framework.urls', namespace='rest_framework'))
+                       url(r'^api/', include('rest_framework.urls', namespace='rest_framework')),
+                       url(r'^', include(exercise_urls.router.urls + class_urls.router.urls))
 ) + static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += (url(r'^admin/django-ses/', include('django_ses.urls')),)
