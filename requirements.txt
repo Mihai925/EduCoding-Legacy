@@ -1,9 +1,9 @@
-Django==1.9.2
+Django==1.11.20
 Pillow==3.1.0
 South==1.0.2
 argparse==1.1
 boto==2.39.0
-certifi==14.05.14
+certifi==2017.4.17
 coverage==3.7.1
 django-ace==1.0.2
 django-annoying==0.8.1
@@ -13,7 +13,7 @@ django-scheduler==0.7.4
 django-selectable==0.9.0
 django-ses==0.7.0
 django-widget-tweaks==1.4.1
-djangorestframework==3.3.3
+djangorestframework==3.9.2
 future==0.14.3
 gdata==2.0.18
 icalendar==3.9.1
@@ -22,6 +22,6 @@ psycopg2==2.7.1
 python-dateutil==2.4.1
 python-google-spreadsheet==2.0.0
 pytz==2014.10
-requests==2.9.1
+requests==2.20.0
 six==1.9.0
 wsgiref==0.1.2

@@ -1,5 +1,5 @@
 from Class.api.views import ClassViewSet
-from django.conf.urls import url
+from django.conf.urls import url, include
 from rest_framework import routers
 from .views import ClassManagementHomeView, ClassStudentsView, remove_student_from_class, \
     send_invites_to_students, create_new_class, delete_class, resend_invitation, delete_invitation
@@ -15,6 +15,5 @@ urlpatterns = [
     url(r'^create_class', create_new_class),
     url(r'^delete_class', delete_class),
     url(r'^resend_invite/(\d+)/$', resend_invitation),
-    url(r'^delete_invite/(\d+)/$', delete_invitation),
+    url(r'^delete_invite/(\d+)/$', delete_invitation)
 ]
-

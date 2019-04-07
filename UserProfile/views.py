@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.template.loader import get_template
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from .forms import UserProfileForm
 
 

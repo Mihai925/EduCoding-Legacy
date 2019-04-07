@@ -11,7 +11,6 @@ from authentication.models import Invitation
 class TeacherRegistrationTestCase(TestCase):
 
     def setUp(self):
-        setup_test_environment()
         self.invitation = AutoFixture(Invitation, generate_fk=True).create(1)[0]
         self.user = AutoFixture(User).create(1)[0]
         self.client = TestClient()

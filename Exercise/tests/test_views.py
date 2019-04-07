@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.test.utils import setup_test_environment
 from django.test import Client
 from Exercise.models import Exercise
 from ..forms import NewExerciseForm, ExerciseForm
@@ -9,7 +8,6 @@ class ViewsTestCase(TestCase):
     fixtures = ['educoding/test_fixtures/test_fixture.json']
 
     def setUp(self):
-        setup_test_environment()
         self.client = Client()
 
     def test_single_exercise_editor_view(self):
