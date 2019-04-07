@@ -66,6 +66,7 @@ class ManageExercisesView(View):
                  zip(request.POST.getlist("input_test"), request.POST.getlist("output_test"))]
         title = request.POST.get("inputTitle", False)
         code = request.POST.get("code", '')
+        user = request.user
         if not title:
             errors += ['Title field cannot be empty']
         description = request.POST.get("inputDescription", False)
@@ -73,7 +74,7 @@ class ManageExercisesView(View):
             errors += ['Description field cannot be empty']
 
         if not errors:
-            new_exercise = Exercise.objects.create(title=title, description=description, content=code)
+            new_exercise = Exercise.objects.create(title=title, description=description, content=code, author=user)
             new_exercise.tests = tests
         template_pars = {
             'form': NewExerciseForm(initial={'code': ''}, auto_id='new_ex'),

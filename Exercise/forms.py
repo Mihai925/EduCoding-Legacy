@@ -1,5 +1,3 @@
-__author__ = 'varun'
-
 from django import forms
 from django_ace import AceWidget
 

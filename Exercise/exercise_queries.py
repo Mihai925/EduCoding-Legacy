@@ -7,6 +7,8 @@ def assign_exercise_to_class(ex_id, cls_id):
     exercise = Exercise.objects.get(ex_id=ex_id)
     exercise.classes_assigned_to.add(a_class)
 
+def get_exercises_for_reacher(teacher):
+    return Exercise.objects.filter(author=teacher)
 
 def get_assigned_exercise_for_class(cls_id):
     a_class = Class.objects.get(cls_id=cls_id)

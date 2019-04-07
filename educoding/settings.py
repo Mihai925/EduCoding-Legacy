@@ -3,7 +3,7 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-SECRET_KEY = os.environ.get('SECRET_KEY', '')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'tralalalala')
 
 TEMPLATE_DEBUG = True
 
@@ -14,7 +14,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
-    'django_ses',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -109,12 +108,12 @@ LOGOUT_URL = "/authentication/logout"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', ''),
-        'PORT': os.environ.get('DB_PORT', ''),
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'sqlite3.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -166,16 +165,10 @@ LOGGING = {
 }
 
 #E-mail setup for SES:
-EMAIL_BACKEND = 'django_ses.SESBackend'
-AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY', '')
-AWS_SES_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_SECRET_ACCESS_KEY', '')
-AWS_SES_REGION_NAME = os.environ.get('AWS_SES_REGION_NAME', '')
-AWS_SES_REGION_ENDPOINT = os.environ.get('AWS_SES_REGION_ENDPOINT', '')
-
 
 COMPILER_API = os.environ.get('COMPILER_API', '')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = json.loads(os.environ.get('DEBUG', '').lower())
+DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
