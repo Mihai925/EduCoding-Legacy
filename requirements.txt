@@ -17,6 +17,7 @@ djangorestframework==3.9.2
 future==0.14.3
 gdata==2.0.18
 icalendar==3.9.1
+jpeg4py ==0.1.4
 mock==1.0.1
 psycopg2==2.7.1
 python-dateutil==2.4.1
