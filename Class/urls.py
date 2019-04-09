@@ -8,12 +8,12 @@ router = routers.DefaultRouter()
 router.register(r'classes', ClassViewSet, base_name="classes")
 
 urlpatterns = [
-    url(r'^$', ClassManagementHomeView.as_view()),
+    url(r'^\Z', ClassManagementHomeView.as_view()),
     url(r'^get_students_in_class', ClassStudentsView.as_view()),
     url(r'^send_invitations', send_invites_to_students),
     url(r'^remove_user_from_class', remove_student_from_class),
     url(r'^create_class', create_new_class),
     url(r'^delete_class', delete_class),
-    url(r'^resend_invite/(\d+)/$', resend_invitation),
-    url(r'^delete_invite/(\d+)/$', delete_invitation)
+    url(r'^resend_invite/(\d+)/^\Z', resend_invitation),
+    url(r'^delete_invite/(\d+)/^\Z', delete_invitation)
 ]

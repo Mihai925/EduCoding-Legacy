@@ -15,6 +15,8 @@
     }
 </style>
 <link href="{% static "custom/css/exercises.css" %}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 {{ form.media }}
 {% endblock %}
 {% block CONTENT %}
@@ -31,12 +33,12 @@
         </ul>
     {%  endif %}
    <hr />
-   <div class="bs-example">
-      <div class="panel-group" id="accordion">
+   <div class="manage-ex">
+      <div class="panel-group" id="accordion-1">
          <div class="panel panel-default">
             <div class="panel-heading">
                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Add new exercise</a>
+                  <a data-toggle="collapse" data-parent="#accordion-1" href="#collapseOne">Add new exercise</a>
                </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
@@ -121,7 +123,63 @@
       </div>
    </div>
    <h2>Edit Exercises</h2>
+   <div id="exercises-app">
+
+      <div class="edit-ex">
+         <div v-for="(exercise, index) in exercises">
+            <div class="panel-group" :id="'accordion-'+[[index]]">
+               <div class="panel-heading">
+                  <h4 class="panel-title">
+                     <a data-toggle="collapse" data-parent="#accordion-2" :href="'#collapse-'+[[index]]">[[exercise.title]]</a>
+                  </h4>
+               </div>
+
+               <div :id="'collapse-'+[[index]]" class="panel-collapse collapse">
+                  <div class="panel-body">
+                     <div class="row">
+                        <div class="form-group col-md-8">
+                           <label for="inputTitle">Title</label>
+                           [[exercise.title]]
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-md-8">
+                           <label for="inputDescription">Description</label>
+                           [[exercise.description]]
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="form-group col-md-8">
+                           <label for="language">Language</label>
+                           [[exercise.language]]
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="form-group col-md-8" style="padding:0;padding-right:5px;">
+                           <label for="content">Exercise Content</label>
+                           [[exercise.content]]
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="checkbox col-md-8">
+                           <label>
+                              BOX Add tests
+                           </label>
+                        </div>
+                      </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+
+
 </div>
+
+
 <script>
    var $tests_number = 1;
    $new_test = '<div class="row"><div class="col-md-4"><label>Test Input<textarea rows="3" cols="40" class="form-control" name="input_test">' +
@@ -146,5 +204,21 @@
         $("#tests").append($new_test);
         $tests_number++;
     })
+    var app = new Vue({
+      delimiters: ['[[', ']]'],
+      el: '#exercises-app',
+      data () {
+         return {
+            message: 'Hello Vue!',
+            exercises: [],
+          }
+      },
+      mounted () {
+         axios
+            .get('/api/exercises')
+            .then(response => (this.exercises=response.data))
+      }
+
+    });
 </script>
 {% endblock %}
