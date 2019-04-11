@@ -34,7 +34,7 @@
     {%  endif %}
    <hr />
    <div class="manage-ex">
-      <div class="panel-group" id="accordion-1">
+      <div class="panel-group" id="accordion">
          <div class="panel panel-default">
             <div class="panel-heading">
                <h4 class="panel-title">
@@ -128,37 +128,109 @@
       <div class="edit-ex">
          <div v-for="(exercise, index) in exercises">
             <div class="panel-group" :id="'accordion-'+[[index]]">
-               <div class="panel-heading">
-                  <h4 class="panel-title">
-                     <a data-toggle="collapse" data-parent="#accordion-2" :href="'#collapse-'+[[index]]">[[exercise.title]]</a>
-                  </h4>
-               </div>
+               <div class="panel panel-default">
+
+                  <div class="panel-heading">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" :data-parent="'accordion-'+[[index]]" :href="'#collapse-'+ [[index]]">[[exercise.title]]</a>
+                     </h4>
+                  </div>
+
 
                <div :id="'collapse-'+[[index]]" class="panel-collapse collapse">
                   <div class="panel-body">
+
+                     <fieldset>
                      <div class="row">
                         <div class="form-group col-md-8">
-                           <label for="inputTitle">Title</label>
-                           [[exercise.title]]
+                           <label>Title</label>
+                           <input type="text" required placeholder="Title" class="form-control" :id="'inputTitle-'+ [[index]]" :value="[[exercise.title]]" />
+
+                           </div>
                         </div>
                      </div>
                      <div class="row">
                         <div class="form-group col-md-8">
-                           <label for="inputDescription">Description</label>
-                           [[exercise.description]]
+                           <label>Description</label>
+                           <textarea name="inputDescription" rows="10" :id="'inputDescription-' + [[index]]" required placeholder="Describe the exercise..." cols="40" class="form-control">[[exercise.description]]
+                           </textarea>
                         </div>
                      </div>
 
                      <div class="row">
                         <div class="form-group col-md-8">
-                           <label for="language">Language</label>
-                           [[exercise.language]]
+                           <label>Language</label>
+                           <select name="language" class="form-control" id="language">
+                              <option :value="[[exercise.language]]">[[exercise.language]]</option>
+                           </select>
                         </div>
                      </div>
                      <div class="row">
                         <div class="form-group col-md-8" style="padding:0;padding-right:5px;">
-                           <label for="content">Exercise Content</label>
-                           [[exercise.content]]
+                           <label>Exercise Content</label>
+
+                           <div class="django-ace-editor">
+                              <div style="width: 100%" class="django-ace-toolbar">
+                                 <a href="./" class="django-ace-max_min"></a>
+                              </div>
+                              <div class="django-ace-widget" data-mode="python" data-showprintmargin="true" data-theme="github" data-wordwrap="true" style="width:100%; height:440px">
+                                 <div class=" ace_editor ace-github">
+                                    <textarea class="ace_text-input" wrap="off" autocapitalize="off" spellcheck="false" style="opacity: 0; height: 16px; width: 7.20125px; left: 45px; top: 0px;">
+                                    </textarea>
+                                    <div class="ace_gutter">
+                                       <div class="ace_layer ace_gutter-layer ace_folding-enabled" style="margin-top: 0px; height: 472px; width: 41px;">
+                                          <div class="ace_gutter-cell " style="height: 16px;">1</div></div><div class="ace_gutter-active-line" style="top: 0px; height: 16px;">
+
+                                          </div>
+                                       </div>
+                                       <div class="ace_scroller" style="left: 41px; right: 0px; bottom: 0px;">
+                                          <div class="ace_content" style="margin-top: 0px; width: 726px; height: 472px; margin-left: 0px;">
+                                             <div class="ace_layer ace_print-margin-layer">
+                                                <div class="ace_print-margin" style="left: 580.1px; visibility: visible;">
+
+                                                </div>
+                                             </div>
+                                             <div class="ace_layer ace_marker-layer">
+                                                <div class="ace_active-line" style="height:16px;top:0px;left:0;right:0;">
+
+                                                </div>
+                                             </div>
+                                             <div class="ace_layer ace_text-layer" style="padding: 0px 4px;">
+                                                <div class="ace_line_group" style="height:16px">
+                                                   <div class="ace_line" style="height:16px">
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="ace_layer ace_marker-layer">
+                                             </div>
+                                             <div class="ace_layer ace_cursor-layer ace_hidden-cursors">
+                                                <div class="ace_cursor" style="left: 4px; top: 0px; width: 7.20125px; height: 16px;">
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; bottom: 0px;">
+                                          <div class="ace_scrollbar-inner" style="width: 20px; height: 16px;">
+                                          </div>
+                                       </div>
+                                       <div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 41px; right: 0px;">
+                                          <div class="ace_scrollbar-inner" style="height: 20px; width: 767px;">
+                                          </div>
+                                       </div>
+                                       <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font: inherit; overflow: hidden;">
+                                          <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font: inherit; overflow: visible;">
+                                          </div>
+                                       <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">
+                                          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <textarea name="code" :id="'code-'[[index]]" rows="10" cols="40" required="" style="display: none;">[[exercise.content]]</textarea>
+                           </div>
+
+
+
                         </div>
                      </div>
                      <div class="row">
@@ -168,6 +240,9 @@
                            </label>
                         </div>
                       </div>
+                     </fieldset>
+
+                  </div>
                   </div>
                </div>
             </div>
@@ -209,7 +284,6 @@
       el: '#exercises-app',
       data () {
          return {
-            message: 'Hello Vue!',
             exercises: [],
           }
       },
