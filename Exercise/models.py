@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 
 from Class.models import Class
 
+SUPPORTED_PROGRAMMING_LANGUAGES = (
+    ("cpp", "C++"),
+    ("python", "Python")
+)
 
 # Exercise models.
 class Exercise(models.Model):
@@ -14,6 +18,7 @@ class Exercise(models.Model):
     content = models.TextField('Content', blank=False)
     classes_assigned_to = models.ManyToManyField(Class, blank=True)
     tests = models.ManyToManyField(ExerciseTests, blank=True)
+    language = models.CharField(choices=SUPPORTED_PROGRAMMING_LANGUAGES, default="cpp", max_length=20)
 
     def __repr__(self):
         return self.__str__()
@@ -23,5 +28,3 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.title
-
-
