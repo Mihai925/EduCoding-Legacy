@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from Class.models import Class
 
 SUPPORTED_PROGRAMMING_LANGUAGES = (
-    ("cpp", "C++"),
-    ("python", "Python")
+    ("C++", "C++"),
+    ("Python", "Python")
 )
 
 # Exercise models.
