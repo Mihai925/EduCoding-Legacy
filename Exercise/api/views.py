@@ -6,4 +6,7 @@ from Exercise.models import Exercise
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
-    queryset = Exercise.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        return Exercise.objects.filter(author=user)
