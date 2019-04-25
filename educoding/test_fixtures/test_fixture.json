@@ -115,14 +115,27 @@
 },
 {
     "model": "Exercise.exercise",
-    "pk": 1,
     "fields": {
+        "ex_id": 1,
+        "author": 1,
         "title": "One exercise",
         "description": "Test exercise",
         "content": "print 'Hello'",
-        "classes_assigned_to": [
-            1
-        ],
+        "has_tests": true,
+        "language": "C++",
+        "tests": []
+    }
+},
+{
+    "model": "Exercise.exercise",
+    "fields": {
+        "ex_id": 2,
+        "author": 1,
+        "title": "Test exercise 2",
+        "description": "Test exercise 3",
+        "content": "print 'Hello'",
+        "has_tests": true,
+        "language": "Python",
         "tests": []
     }
 },

@@ -1,7 +1,5 @@
 from django.http import HttpResponse
-from Exercise.models import Exercise, ExerciseTests
 from Exercise.exercise_queries import get_assigned_exercise_for_students
-from .forms import ExerciseForm, NewExerciseForm
 from Compiler.compiler import *
 from authentication.authenticate import group_required
 from django.views.generic import TemplateView, View
@@ -15,12 +13,9 @@ class SingleExerciseEditorView(TemplateView):
     @method_decorator(group_required('Student'))
     def get(self, request, *args, **kwargs):
         ex_id = args[0]
-        exercise = Exercise.objects.get(ex_id=ex_id)
         template_pars = {
-            'form': ExerciseForm(initial={'code': exercise.content}, auto_id="id_%s_" + ex_id),
-            'ex_description': exercise.description,
-            'ex_id': ex_id,
-            'name': request.user.first_name}
+
+        }
         return render(request, self.template_name, template_pars)
 
 

@@ -30,7 +30,6 @@ INSTALLED_APPS = (
     'Autotester',
 
     #3rd Party
-    'django_ace',
     'widget_tweaks',
     'selectable',
     'rest_framework',
