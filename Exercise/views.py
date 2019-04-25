@@ -1,6 +1,5 @@
 from django.http import HttpResponse
-from Autotester.models import ExerciseTests
-from Exercise.models import Exercise
+from Exercise.models import Exercise, ExerciseTests
 from Exercise.exercise_queries import get_assigned_exercise_for_students
 from .forms import ExerciseForm, NewExerciseForm
 from Compiler.compiler import *
@@ -54,32 +53,9 @@ class ManageExercisesView(View):
     @method_decorator(group_required('Teacher'))
     def get(self, request, *args, **kwargs):
         template_pars = {
-            'form': NewExerciseForm(initial={'code': ''}, auto_id='new_ex'),
-            'errors': []
         }
         return render(request, self.template_name, template_pars)
 
-    @method_decorator(group_required('Teacher'))
-    def post(self, request, *args, **kwargs):
-        errors = []
-        tests = [ExerciseTests.objects.create(input=input, expected_output=output) for (input, output) in
-                 zip(request.POST.getlist("input_test"), request.POST.getlist("output_test"))]
-        title = request.POST.get("inputTitle", False)
-        code = request.POST.get("code", '')
-        user = request.user
-        if not title:
-            errors += ['Title field cannot be empty']
-        description = request.POST.get("inputDescription", False)
-        if not description:
-            errors += ['Description field cannot be empty']
 
-        if not errors:
-            new_exercise = Exercise.objects.create(title=title, description=description, content=code, author=user)
-            new_exercise.tests = tests
-        template_pars = {
-            'form': NewExerciseForm(initial={'code': ''}, auto_id='new_ex'),
-            'errors': errors
-        }
-        return render(request, self.template_name, template_pars)
 
 

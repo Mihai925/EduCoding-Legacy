@@ -2,25 +2,13 @@
 {% load AddCSSToTemplatesTag %}
 {% load staticfiles %}
 {% block CUSTOM_IMPORTS %}
-<style xmlns="http://www.w3.org/1999/html">
-   .django-ace-toolbar {
-   visibility: hidden;
-   }
-   .ace_edutor {
-   font-size:15px;
-   }
-
-    #tests {
-        display:none;
-    }
-</style>
 <link href="{% static "custom/css/exercises.css" %}" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 {{ form.media }}
 {% endblock %}
 {% block CONTENT %}
-<div class="col-sm-9 bg-white">
+<div class="col-sm-9 bg-white" id="exercises-app">
 
    <h2>Manage Exercises</h2>
     {%  if errors %}
@@ -33,101 +21,96 @@
         </ul>
     {%  endif %}
    <hr />
-   <div class="manage-ex">
+   <div id="create-ex">
       <div class="panel-group" id="accordion">
          <div class="panel panel-default">
-            <div class="panel-heading">
-               <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion-1" href="#collapseOne">Add new exercise</a>
-               </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-               <div class="panel-body">
-                  <form method="post">
-                      {% csrf_token %}
-                     <fieldset>
+
+                  <div class="panel-heading">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="accordion" href="#collapse">Create New Exercise</a>
+                     </h4>
+                  </div>
+
+                  <div id="collapse" class="panel-collapse collapse">
+                     <div class="panel-body">
                         <div class="row">
                            <div class="form-group col-md-8">
-                              <label for="inputTitle">Title</label>
-                               {{ form.inputTitle }}
+                              <label>Title</label>
+                              <input type="text" required placeholder="Title" class="form-control" id="inputTitle" v-model="new_exercise.title" />
+                           </div>
+                        </div>
+                        [[new_exercise.title]]
+                        <div class="row">
+                           <div class="form-group col-md-8">
+                              <label>Description</label>
+                              <textarea name="inputDescription" rows="10" id="inputDescription" required placeholder="Describe the exercise..." cols="40" class="form-control" v-model="new_exercise.description"></textarea>
                            </div>
                         </div>
                         <div class="row">
                            <div class="form-group col-md-8">
-                              <label for="inputDescription">Description</label>
-                               {{ form.inputDescription }}
+                              <label>Language</label>
+                              <select name="language" class="form-control" id="language" v-model="new_exercise.language">
+                                 <option v-for="language in languages">[[language]]</option>
+                              </select>
                            </div>
                         </div>
-                        <div class="row">
-                           <div class="form-group col-md-8">
-                              <label for="language">Language</label>
-                              {{ form.language }}
+                        <div class="form-group col-md-8">
+                           <div class="row">
+                              <div style="height: 440px; width:100%;">
+                                 <editor editor-id="editor" :content="new_exercise.content" v-on:change-content="changeContent" :exercise="new_exercise"></editor>
+                              </div>
                            </div>
-                        </div>
-                        <div class="row">
-                           <div class="form-group col-md-8" style="padding:0;padding-right:5px;">
-                              <label for="content">Exercise Content</label>
-
-
-                                 {{ form.non_field_errors }}
-                                 {{ form.code.errors }}
-                                 {{ form.code }}
-
-                           </div>
+                           [[new_exercise.content]]
                         </div>
                         <div class="row">
                            <div class="checkbox col-md-8">
                               <label>
-                              {{ form.add_tests }} Add tests
+                                 <input type="checkbox" name="add_tests" class="add_tests" id="tests" v-model="new_exercise.has_tests"/> Add tests
                               </label>
                            </div>
                         </div>
-                        <div id="tests">
-                           <div class="row">
+                        <div class="tests" v-if="new_exercise.has_tests">
+                           <div class="row" v-for="(test, index) in new_exercise.tests">
                               <div class="col-md-4">
                                  <label>Test Input
-                                    <textarea rows="3" cols="40" class="form-control" name="input_test" id="input_t"></textarea>
+                                    <textarea rows="3" cols="40" class="form-control" v-model="test.input"></textarea>
                                  </label>
                               </div>
                               <div class="col-md-4">
                                  <label>Expected Output
-                                    <textarea rows="3" cols="40" class="form-control" name="output_test" id="output_t"></textarea>
+                                    <textarea rows="3" cols="40" class="form-control" v-model="test.expected_output"></textarea>
                                  </label>
                               </div>
                               <div class="col-md-4">
                                  <br />
                                  <br />
-                                 <i class="fa fa-minus-circle fa-3x delete_test"></i>
+                                 <i class="fa fa-minus-circle fa-2x delete_test" v-on:click="delete_test(new_exercise, index)"></i>
                               </div>
                            </div>
-
-
                         </div>
                         <div class="row">
                            <div class="col-md-8">
-                              <br />
-                              <button type="button" class="btn btn-xs btn-danger" id="add_test"><span class="glyphicon glyphicon-plus-sign"></span> Add another test</button>
+                              <button v-if="new_exercise.has_tests" class="btn btn-primary" v-on:click="add_test(new_exercise.tests)"><i class="fa fa-plus fa-1x" ></i> Add Test</button>
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-md-8">
                               <br />
-                              <button type="submit" class="btn btn-primary">Create Exercise</button>
+                              <button class="btn btn-primary" v-on:click="create_exercise">Create Exercise</button>
                            </div>
                         </div>
-                     </fieldset>
-                  </form>
+                     </div>
+                     <div class="row">
+                      </div>
+                  </div>
                </div>
-            </div>
-         </div>
       </div>
    </div>
    <h2>Edit Exercises</h2>
-   <div id="exercises-app">
+   <div>
 
       <div class="edit-ex">
-         <div v-for="(exercise, index) in exercises">
-            <div class="panel-group" :id="'accordion-'+[[index]]">
+         <div v-for="(exercise, index) in exercises" class="panel-group" :id="'accordion-'+[[index]]">
                <div class="panel panel-default">
 
                   <div class="panel-heading">
@@ -142,99 +125,72 @@
                         <div class="row">
                            <div class="form-group col-md-8">
                               <label>Title</label>
-                              <input type="text" required placeholder="Title" class="form-control" :id="'inputTitle-'+ [[index]]" :value="[[exercise.title]]" />
+                              <input type="text" required placeholder="Title" class="form-control" :id="'inputTitle-'+ [[index]]" v-model="exercise.title" />
 
                            </div>
                         </div>
-                     </div>
-                     <div class="panel-body">
                         <div class="row">
                            <div class="form-group col-md-8">
                               <label>Description</label>
-                              <textarea name="inputDescription" rows="10" :id="'inputDescription-' + [[index]]" required placeholder="Describe the exercise..." cols="40" class="form-control">[[exercise.description]]</textarea>
+                              <textarea name="inputDescription" rows="10" :id="'inputDescription-' + [[index]]" required placeholder="Describe the exercise..." cols="40" class="form-control" v-model="exercise.description"></textarea>
                            </div>
                         </div>
-                     </div>
-                     <div class="panel-body">
                         <div class="row">
                            <div class="form-group col-md-8">
                               <label>Language</label>
-                              <select name="language" class="form-control" id="language">
-                                 <option :value="[[exercise.language]]">[[exercise.language]]</option>
+                              <select name="language" class="form-control" :id="'language' + [[index]]" v-model="exercise.language">
+                                 <option v-for="language in languages">[[language]]</option>
                               </select>
                            </div>
                         </div>
-                     </div>
-                     <div class="panel-body">
-                        <div class="row">
-                           <div class="form-group col-md-8" style="padding:0;padding-right:5px;">
-                              <label>Exercise Content</label>
-
-                              <div class="django-ace-editor">
-                                 <div style="width: 100%" class="django-ace-toolbar">
-                                    <a href="./" class="django-ace-max_min"></a>
-                                 </div>
-                                 <div class="django-ace-widget" data-mode="python" data-showprintmargin="true" data-theme="github" data-wordwrap="true" style="width:100%; height:440px">
-                                    <div class=" ace_editor ace-github">
-                                       <textarea class="ace_text-input" wrap="off" autocapitalize="off" spellcheck="false" style="opacity: 0; height: 16px; width: 7.20125px; left: 45px; top: 0px;">
-                                       </textarea>
-                                       <div class="ace_gutter">
-                                          <div class="ace_layer ace_gutter-layer ace_folding-enabled" style="margin-top: 0px; height: 472px; width: 41px;">
-                                             <div class="ace_gutter-cell " style="height: 16px;">1</div></div><div class="ace_gutter-active-line" style="top: 0px; height: 16px;">
-
-                                             </div>
-                                          </div>
-                                          <div class="ace_scroller" style="left: 41px; right: 0px; bottom: 0px;">
-                                             <div class="ace_content" style="margin-top: 0px; width: 726px; height: 472px; margin-left: 0px;">
-                                                <div class="ace_layer ace_print-margin-layer">
-                                                   <div class="ace_print-margin" style="left: 580.1px; visibility: visible;">
-
-                                                   </div>
-                                                </div>
-                                                <div class="ace_layer ace_marker-layer">
-                                                   <div class="ace_active-line" style="height:16px;top:0px;left:0;right:0;">
-
-                                                   </div>
-                                                </div>
-                                                <div class="ace_layer ace_text-layer" style="padding: 0px 4px;">
-                                                   <div class="ace_line_group" style="height:16px">
-                                                      <div class="ace_line" style="height:16px">
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="ace_layer ace_marker-layer">
-                                                </div>
-                                                <div class="ace_layer ace_cursor-layer ace_hidden-cursors">
-                                                   <div class="ace_cursor" style="left: 4px; top: 0px; width: 7.20125px; height: 16px;">
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; bottom: 0px;">
-                                             <div class="ace_scrollbar-inner" style="width: 20px; height: 16px;">
-                                             </div>
-                                          </div>
-                                          <div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 41px; right: 0px;">
-                                             <div class="ace_scrollbar-inner" style="height: 20px; width: 767px;">
-                                             </div>
-                                          </div>
-                                          <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font: inherit; overflow: hidden;">
-                                             <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font: inherit; overflow: visible;">
-                                             </div>
-                                          <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">
-                                          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <textarea name="code" :id="'code-'[[index]]" rows="10" cols="40" required="" style="display: none;">[[exercise.content]]</textarea>
+                        <div class="form-group col-md-8">
+                           <div class="row">
+                              <div style="height: 440px; width:100%;">
+                                 <editor :editor-id="'editor-' + [[index]]" :content="exercise.content" v-on:change-content="changeContent" :exercise="exercise"></editor>
                               </div>
+                           </div>
+                           [[exercise.content]]
+                        </div>
+                        <div class="row">
+                           <div class="checkbox col-md-8">
+                              <label>
+                                 <input type="checkbox" name="add_tests" class="add_tests" :id="'tests-'+[[index]]" v-model="exercise.has_tests"/> Add tests
+                              </label>
+                           </div>
+                        </div>
+                        <div class="tests" v-if="exercise.has_tests">
+                           <div class="row" v-for="(test, index) in exercise.tests">
+                              <div class="col-md-4">
+                                 <label>Test Input
+                                    <textarea rows="3" cols="40" class="form-control" v-model="test.input"></textarea>
+                                 </label>
+                              </div>
+                              <div class="col-md-4">
+                                 <label>Expected Output
+                                    <textarea rows="3" cols="40" class="form-control" v-model="test.expected_output"></textarea>
+                                 </label>
+                              </div>
+                              <div class="col-md-4">
+                                 <br />
+                                 <br />
+                                 <i class="fa fa-minus-circle fa-2x delete_test" v-on:click="delete_test(exercise, index)"></i>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-8">
+                              <button v-if="exercise.has_tests" class="btn btn-primary" v-on:click="add_test(exercise.tests)"><i class="fa fa-plus fa-1x" ></i> Add Test</button>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-8">
+                              <br />
+                              <button class="btn btn-primary" v-on:click="edit_exercise(exercise)">Edit Exercise</button>
                            </div>
                         </div>
                      </div>
                      <div class="row">
                       </div>
-                  </div>
                   </div>
                </div>
             </div>
@@ -248,43 +204,96 @@
 
 
 <script>
-   var $tests_number = 1;
-   $new_test = '<div class="row"><div class="col-md-4"><label>Test Input<textarea rows="3" cols="40" class="form-control" name="input_test">' +
-   '</textarea></label></div><div class="col-md-4">' +
-   '<label>Expected Output<textarea rows="3" cols="40" class="form-control" name="output_test"></textarea> </label><' +
-   '/div><div class="col-md-4"><br /><br /><i class="fa fa-minus-circle fa-3x delete_test"></i></div></div>';
-   $("#add_tests").change(function() {
-      if($(this).is(':checked')) {
-          $("#tests").show();
-      } else {
-          $("#tests").hide();
-      }
-   });
-
-    $(".delete_test").click(function() {
-      if($tests_number > 1) {
-          $(this).parent().parent().remove();
-      }
-    });
-
-    $("#add_test").click(function() {
-        $("#tests").append($new_test);
-        $tests_number++;
-    })
     var app = new Vue({
       delimiters: ['[[', ']]'],
       el: '#exercises-app',
       data () {
          return {
             exercises: [],
+            languages: ["Java", "C++", "Python"],
+            editor_ids: [],
+            paramA: "",
+            new_exercise: {
+               title: "",
+               description: "",
+               language: "",
+               content: "",
+               has_tests: false,
+               tests: []
+            }
           }
       },
       mounted () {
+         axios.defaults.xsrfCookieName = 'csrftoken'
+         axios.defaults.xsrfHeaderName = 'X-CSRFToken'
          axios
             .get('/api/exercises')
-            .then(response => (this.exercises=response.data))
-      }
+            .then(response => {this.exercises=response.data; this.editor_ids.push(""); })
+      },
+      methods: {
+         add_test(tests) {
+            tests.push({
+               "input": "",
+               "expected_output": ""
+            });
+         },
 
+         changeContent(value, exercise) {
+            if(exercise.content != value) {
+               exercise.content = value
+            }
+         },
+
+         delete_test(exercise, index) {
+            exercise.tests.splice(index, 1)
+         },
+
+         edit_exercise(exercise) {
+            axios
+               .put('/api/exercises/' + exercise.ex_id + '/', exercise)
+               .then(response => (console.log(response)))
+         },
+
+         create_exercise() {
+            console.log(this.new_exercise)
+            axios
+               .post('/api/exercises/', this.new_exercise)
+               .then(response => (console.log(response)))
+         }
+      }
     });
+
+   Vue.component('Editor', {
+	  template: '<div :id="editorId" style="width: 100%; height: 100%;"></div>',
+      props: ['editorId', 'content', 'lang', 'theme', 'exercise'],
+      data () {
+         return {
+            editor: Object,
+            beforeContent: ''
+         }
+   },
+   watch: {
+      'content' (value) {
+    	 if (this.beforeContent !== value) {
+      	    this.editor.setValue(value, 1)
+         }
+      }
+   },
+   mounted () {
+  	  const lang = this.lang || 'text'
+      const theme = this.theme || 'github'
+
+	  this.editor = window.ace.edit(this.editorId)
+      this.editor.setValue(this.content, 1)
+
+      this.editor.getSession().setMode(`ace/mode/${lang}`)
+      this.editor.setTheme(`ace/theme/${theme}`)
+
+      this.editor.on('change', () => {
+    	 this.beforeContent = this.editor.getValue()
+         this.$emit('change-content', this.editor.getValue(), this.$props.exercise)
+      })
+   }
+  })
 </script>
 {% endblock %}
