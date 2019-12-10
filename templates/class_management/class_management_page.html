@@ -14,430 +14,45 @@
 
 
 {% block CONTENT %}
-  <div id="loadingSpanner" class="col-lg-offset-3 col-lg-9" style="position:fixed;z-index:1040; height: 100%;">
-    <div style="background-color: dimgrey; opacity: 0.3">
-      <div class="col-md-offset-4 col-md-2"
-           style="padding-top:5%; border-radius: 10px; opacity: 0.7;">
-        <i class="fa fa-5x fa-spinner fa-pulse"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="row" style="padding-left: 10px; padding-right: 10px;">
-      <h3 class="pull-left">Classes</h3>
 
-      <div class="pull-right">
-        <div id="addClassSpan"
-             style="text-align:right;padding-top:10px;padding-bottom:10px">
-          <button class="btn btn-success" data-toggle="modal" data-target="#createClassModal">
-            <i class="fa fa-plus-circle"></i> Create Class
-          </button>
-        </div>
-      </div>
+  <div class="col-lg-4 classes-list">
+    <div class="row" style="padding-left: 10px; padding-right: 10px;">
+      <h3>Classes</h3>
+      <hr />
+
     </div>
-    <ul class="nav nav-pills nav-stacked" style="padding:0;">
-      {% for name,description,id in classes %}
-        <li role="presentation" id="class_list_{{ id }}" style="padding:0; list-style-type: none;">
-          <div class="item"
-               onclick="currentClass={{ id }};currentClassName='{{ name }}';display_students_for_class({{ id }},'{{ name }}')"
-               style="padding:10px auto">
-            <div style="height:40px;width:40px;background-color:#00FF00;float:left;"></div>
-            <span style="font-size:18px;margin-left:10px;">{{ name }}</span><br>
-            <span style="margin-left:10px;">{{ description }}</span>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="row">
+
+      <ul class="list-group">
+        <a href="#" class="list-group-item">5 B</a>
+        <a href="#" class="list-group-item">6 B</a>
+        <a href="#" class="list-group-item">7 B</a>
+        <a href="#" class="list-group-item">10 A</a>
+      </ul>
+
+    </div>
+    <hr />
+    <div class="row" id="new-class-button">
+
+     <button type="button" class="btn btn-success btn-lg btn-block"><i class="fa fa-plus"></i> New Class</button>
+
+    </div>
   </div>
   <div class="col-lg-8" style="background-color:#FFF;padding-bottom:30px;">
     <div class="row" style="padding-right: 0; padding-left: 10px; border-bottom:1px solid #EEE;">
-      <div class="col-md-5" style="padding: 5px">
-        <h4 id="id_class_title"></h4>
-      </div>
-      <div class="col-md-offset-1 col-md-5" id="classOptionsDiv" style="">
-        <div class="col-sm-offset-1 col-sm-3" style="text-align:right;padding-top:10px;padding-bottom:10px;">
-          <button class="btn btn-success" data-toggle="modal" data-target="#addStudentsModal">
-            <i class="fa fa-user-plus"></i> Invite Students
-          </button>
-        </div>
-        <div class="col-sm-offset-5 col-sm-3"
-             style="text-align:right;padding-top:10px;padding-bottom:10px; padding-right: 0; padding-left: 0px!important;">
-          <a class="btn btn-danger" id="deleteClassButton" onclick="delete_class();return false;">
-            <i class="fa fa-trash-o fa-lg"></i> Delete Class
-          </a>
-        </div>
+      <div id="top-class-buttons">
+        <button class="btn btn-success" data-toggle="modal" data-target="#addStudentsModal">
+          <i class="fa fa-user-plus"></i> Invite Students
+        </button>
+
+        <button class="btn btn-danger" id="deleteClassButton" onclick="delete_class();return false;">
+          <i class="fa fa-trash-o fa-lg"></i> Delete Class
+        </button>
       </div>
     </div>
     <div id="studentList">
     </div>
   </div>
-  {% csrf_token %}
-  <script>
-    var csrftoken = getCsrfToken();
-    var studentListDiv = $("#studentList");
-    var classOptionsDiv = $("#classOptionsDiv");
-    var loadingScreen = $("#loadingSpanner");
 
-    classOptionsDiv.hide();
-    hideLoadingScreen();
-
-    function showLoadingScreen() {
-      loadingScreen.show();
-    }
-
-    function hideLoadingScreen() {
-      loadingScreen.hide();
-    }
-
-    function delete_class() {
-      var delete_cls = confirm("Are you sure you want to delete this class?");
-      if (delete_cls) {
-        $.ajax({
-          type: 'POST',
-          url: '/Class/delete_class',
-          data: {
-            'class_id': currentClass
-          },
-          beforeSend: function (xhr, settings) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-          },
-          success: function (response) {
-            location.reload();
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + errorThrown);
-          }
-        });
-      }
-    }
-
-    function resendInvitationEmail(invitation_id, email) {
-      showLoadingScreen();
-      $.ajax({
-            type: 'GET',
-            url: '/Class/resend_invite/' + invitation_id + "/",
-            data: {},
-            beforeSend: function (xhr, settings) {
-              xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            success: function (response) {
-              successAlert("Invitation email resent to " + email);
-              hideLoadingScreen();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-              errorAlert("Error occurred while sending Invitation email to " + email);
-              hideLoadingScreen();
-            }
-          }
-      );
-      return false;
-    }
-
-    function deleteInvitation(invitation_id, email) {
-      showLoadingScreen();
-      $.ajax({
-            type: 'GET',
-            url: '/Class/delete_invite/' + invitation_id + "/",
-            data: {},
-            beforeSend: function (xhr, settings) {
-              xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            success: function (response) {
-              successAlert("Invitation deleted for " + email);
-              display_students_for_class(currentClass);
-              hideLoadingScreen();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-              errorAlert("Error occurred while deleting Invitation for " + email);
-              hideLoadingScreen();
-            }
-          }
-      );
-      return false;
-    }
-
-    function display_students_for_class(class_id, name) {
-      showLoadingScreen();
-      $.ajax({
-        type: 'GET',
-        url: '/Class/get_students_in_class',
-        data: {
-          'class_id': class_id
-        },
-        beforeSend: function (xhr, settings) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        },
-        success: function (response) {
-          $('#id_class_title').text(name);
-          studentListDiv.html(response);
-          classOptionsDiv.show()
-          hideLoadingScreen();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          errorAlert("Error occurred while getting students for class.");
-          hideLoadingScreen();
-        }
-      });
-      return false;
-    }
-
-    function delete_student_from_class(class_id, username) {
-      showLoadingScreen();
-      $.ajax({
-        type: 'GET',
-        url: '/Class/remove_user_from_class',
-        data: {
-          'class_id': class_id,
-          'username': username
-        },
-        beforeSend: function (xhr, settings) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        },
-        success: function (response) {
-          if (response != "removed") {
-            alertify.error("Error while removing the user.")
-          }
-          else {
-            successAlert("Student removed");
-            display_students_for_class(class_id);
-          }
-          hideLoadingScreen();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          errorAlert("Error while removing the user");
-          hideLoadingScreen();
-        }
-      });
-      return false;
-    }
-  </script>
 {% endblock %}
 
-{% block MODALS %}
-  <div class="modal fade" role="dialog" id="createClassModal">
-    <div class="modal-dialog" style="z-index: 1041;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-              aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="createClassModalLabel">Create Class</h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <label for="inputEmail3" class="col-sm-4 control-label">Class Name</label>
-
-              <div class="col-sm-6">
-                <input class="form-control" id="newClassName" placeholder="Name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="newClassDescription" class="col-sm-4 control-label">Class Description</label>
-
-              <div class="col-sm-6">
-                <textarea id="newClassDescription" rows="4" style="width:100%;"></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="createClass();return false;">Create Class</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" tabindex="-1" role="dialog" id="addStudentsModal">
-    <div class="modal-dialog" style="z-index: 1041;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                  onclick="resetInvitationsModal()"><span
-              aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Invite Students</h4>
-        </div>
-        <div class="modal-body" style="padding: 10px 10% 10px 10%; ">
-          <div id="invitationsTableDiv">
-            <div class="invitation-list center-block">
-              <table id="invitationsTable" class="table table-striped" style="width: 100%">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Email</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="add_emails" class="">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <div class="row-fluid">
-                  <label class="control-label" for="emails">Enter Emails below in shown format</label>
-                </div>
-                <br>
-
-                <div class="row-fluid">
-                  <textarea id="emailsTextArea" cols="80%" rows="15"
-                            placeholder='student@example.com, hello@example.com, hello@world.com'></textarea>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="form-group has-error">
-            <label class="control-label" id="error_text"></label>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetInvitationsModal()">Close
-          </button>
-          <button id="next_button" type="button" class="btn btn-primary"
-                  onclick="parseInvitationsAndConfirm(); return false;">Next
-          </button>
-          <button id="send_invitations_button" type="button" class="btn btn-primary" data-dismiss="modal"
-                  onclick="sendInvitations(); enable_adding_emails(); return false;">
-            Send Invitations
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    var invitations = [];
-    var invitationsTable = $("#invitationsTable tbody");
-    var invitationModal = $('#addStudentsModal');
-    var currentClass;
-    var currentClassName = "";
-    var newClassName = $('#newClassName');
-    var newClassDescription = $('#newClassDescription');
-    var next_button = $("#next_button");
-    var send_invitations = $("#send_invitations_button");
-    var add_emails_body = $("#add_emails");
-    var invitations_table_body = $("#invitationsTableDiv");
-    var emailTextArea = $('#emailsTextArea');
-
-    enable_adding_emails();
-
-    function enable_adding_emails() {
-      send_invitations.hide();
-      invitations_table_body.hide();
-      add_emails_body.show();
-      next_button.show();
-    }
-
-    function enable_invitations_table() {
-      add_emails_body.hide();
-      next_button.hide();
-      send_invitations.show();
-      invitations_table_body.show();
-    }
-
-    function showErrorInEmails(message) {
-      $("#error_text").text("*" + message);
-    }
-
-    function clearErrorInEmails() {
-      $("#error_text").text("");
-    }
-    function parseInvitationsAndConfirm() {
-      if (emailTextArea.val() == "") {
-        showErrorInEmails("Please enter emails of students to proceed.");
-        return;
-      }
-      var parsedEmails = emailTextArea.val().split(",");
-      for (var i = 0; i < parsedEmails.length; i++) {
-        var parsed_email = parsedEmails[i].trim();
-        if (!validateEmail(parsed_email)) {
-          showErrorInEmails("Invalid email: " + parsed_email);
-          invitations = [];
-          return;
-        } else {
-          invitations.push(parsed_email);
-        }
-      }
-      clearErrorInEmails();
-      enable_invitations_table();
-      resetInvitationsTable();
-    }
-
-    function resetInvitationsTable() {
-      invitationsTable.empty();
-      for (var i in invitations) {
-        if (invitations.hasOwnProperty(i)) {
-          addToInvitationList(invitations[i], i);
-        }
-      }
-    }
-    function removeInvitation(index) {
-      invitations.splice(index, 1);
-      resetInvitationsTable();
-    }
-
-    function createClass() {
-      $.ajax({
-        type: 'POST',
-        url: '/Class/create_class',
-        data: {
-          'class_name': newClassName.val(),
-          'class_description': newClassDescription.val()
-        },
-        beforeSend: function (xhr, settings) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        },
-        success: function (response) {
-          location.reload();
-        },
-        onerror: function (xhr, ajaxOptions, thrownError) {
-          alert(thrownError);
-        }
-      });
-      return false;
-    }
-
-    function resetInvitationsModal() {
-      emailTextArea.val("");
-      invitations = [];
-      resetInvitationsTable();
-      enable_adding_emails()
-    }
-
-    function sendInvitations() {
-      showLoadingScreen();
-      $.ajax({
-        type: 'GET',
-        url: '/Class/send_invitations',
-        data: {
-          'invites': JSON.stringify(invitations),
-          'class_id': currentClass
-        },
-        beforeSend: function (xhr, settings) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        },
-        success: function (response) {
-          resetInvitationsModal();
-          display_students_for_class(currentClass);
-          successAlert("Student successfully invited.");
-          hideLoadingScreen();
-        },
-        onerror: function (xhr, ajaxOptions, thrownError) {
-          alert(thrownError);
-          errorAlert(thrownError.message);
-          hideLoadingScreen();
-        }
-      });
-      return false;
-    }
-
-    function addToInvitationList(emailText, index) {
-      var row = parseInt(index + "") + 1;
-      invitationsTable.append("<tr><th scope=\"row\">" + row + "</th><td>" + emailText + "</td>" +
-      "<td class=\"pull-right\"><div class=\"fa-hover\"> <a class=\"btn btn-danger btn-sm\" onclick=\"removeInvitation(" + index + ")\"> " +
-      "<i class=\"fa fa-trash-o\"></i> Delete </a> </div> </td> </tr>");
-    }
-  </script>
-{% endblock %}

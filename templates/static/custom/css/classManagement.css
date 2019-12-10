@@ -89,3 +89,26 @@ html body > ul {
     line-height: 16px;
     word-wrap: break-word;
 }
+
+.classes-list {
+    background: #FFF;
+}
+
+.classes-list h3 {
+    margin: 0.5em;
+}
+
+.classes-list ul {
+    margin: 0.5em 0;
+}
+#top-class-buttons {
+    float:right;
+}
+#top-class-buttons button {
+    margin: 1em;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
